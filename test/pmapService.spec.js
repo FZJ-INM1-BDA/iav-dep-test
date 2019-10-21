@@ -40,6 +40,7 @@ describe(`pmapService @ ${PMAP_SERVICE_URL}`, () => {
   it('POST /multimerge - merge images work', done => {
     request({
       url: `${PMAP_SERVICE_URL}/multimerge`,
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
