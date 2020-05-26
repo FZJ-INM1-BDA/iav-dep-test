@@ -4,7 +4,7 @@ const { assert } = require('chai')
 
 const pmapUrl = `https://pmap-pmap-service-new.apps.hbp.eu`
 
-describe('> pmap-service', () => {
+describe(`> pmap-service @ ${pmapUrl}`, () => {
   describe('> list images', () => {
     it('> works', done => {
       request(`${pmapUrl}/images`, (err, resp, body) => {

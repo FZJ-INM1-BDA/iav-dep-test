@@ -3,7 +3,7 @@ const { assert, expect } = require('chai')
 
 const connectivityBase = `https://connectivityquery-connectivity.apps-dev.hbp.eu`
 
-describe(`> connectivity backend`, () => {
+describe(`> connectivity backend @ ${connectivityBase}`, () => {
   describe(`> metadata`, () => {
     const metadataUrl = `${connectivityBase}/studies`
     it(`> can be fetched properly at ${metadataUrl}`, done => {
