@@ -4,15 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive --timeout 60000"
+    "test": "mocha --recursive --timeout 60000",
+    "mocha": "mocha"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chai": "^4.2.0",
+    "jsdom": "^16.2.2",
     "mocha": "^6.2.2",
-    "puppeteer": "^1.20.0",
     "request": "^2.88.0"
   }
 }
