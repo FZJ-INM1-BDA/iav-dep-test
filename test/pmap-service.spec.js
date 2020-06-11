@@ -56,16 +56,11 @@ describe(`> pmap-service @ ${pmapUrl}`, () => {
           'assert resp.code < 400'
         )
         assert(
-          /filename=.*?\.nii$/.test(resp.headers["content-disposition"]),
+          /filename=.*?\.nii\.gz$/.test(resp.headers["content-disposition"]),
           'assert content disposition has correct extension'
         )
         done()
       })
-
-      /**
-       * TODO check gzipped file
-       * tracking issue: <https://github.com/FZJ-INM1-BDA/PMapService/issues/7>
-       */
     })
   })
 })
