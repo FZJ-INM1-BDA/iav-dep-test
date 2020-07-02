@@ -3,166 +3,502 @@ const { assert } = require('chai')
 const url = `https://hbp-kg-dataset-previewer.apps.hbp.eu/datasetPreview/e715e1f7-2079-45c4-a67f-f76b102acfce`
 const arr = [
   {
-    "name": "Receptor density fingerprint of Area hOc1",
-    "filename": "fingerprint",
-    "mimetype": "application/json"
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "filename" : "hOc1_ar_examples/BZ/hOc1_ar_BZ.tif",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "name" : "hOc1_ar_BZ.tif",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ]
   },
   {
-    "name": "Sample autoradiograph of GABAᴀ(BZ) in Area hOc1",
-    "filename": "GABAᴀ(BZ)/autoradiography",
-    "mimetype": "image/jpeg"
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "filename" : "hOc1_ar_examples/AMPA/hOc1_ar_AMPA.tif",
+     "referenceSpaces" : [
+        {
+           "name" : "*",
+           "fullId" : "*"
+        }
+     ],
+     "name" : "hOc1_ar_AMPA.tif",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined"
   },
   {
-    "name": "Sample autoradiograph of α₁(NA) in Area hOc1",
-    "filename": "α₁(NA)/autoradiography",
-    "mimetype": "image/jpeg"
+     "referenceSpaces" : [
+        {
+           "name" : "*",
+           "fullId" : "*"
+        }
+     ],
+     "name" : "hOc1_ar_mGluR2_3.tif",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "filename" : "hOc1_ar_examples/mGluR2_3/hOc1_ar_mGluR2_3.tif",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png"
   },
   {
-    "name": "Sample autoradiograph of NMDA (Glu) in Area hOc1",
-    "filename": "NMDA (Glu)/autoradiography",
-    "mimetype": "image/jpeg"
+     "filename" : "hOc1_pr_examples/5-HT1A/hOc1_pr_5-HT1A.tsv",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "name" : "hOc1_pr_5-HT1A.tsv",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     }
   },
   {
-    "name": "Sample autoradiograph of GABAᴀ(GABA) in Area hOc1",
-    "filename": "GABAᴀ(GABA)/autoradiography",
-    "mimetype": "image/jpeg"
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png",
+     "name" : "hOc1_pr_alpha2.tsv",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "filename" : "hOc1_pr_examples/alpha2/hOc1_pr_alpha2.tsv"
   },
   {
-    "name": "Sample autoradiograph of α₂(NA) in Area hOc1",
-    "filename": "α₂(NA)/autoradiography",
-    "mimetype": "image/jpeg"
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_ar_GABAB.tif",
+     "filename" : "hOc1_ar_examples/GABAB/hOc1_ar_GABAB.tif",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png"
   },
   {
-    "name": "Sample autoradiograph of α₄β₂(ACh) in Area hOc1",
-    "filename": "α₄β₂(ACh)/autoradiography",
-    "mimetype": "image/jpeg"
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "filename" : "hOc1_pr_examples/mGluR2_3/hOc1_pr_mGluR2_3.tsv",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "name" : "hOc1_pr_mGluR2_3.tsv",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ]
   },
   {
-    "name": "Sample autoradiograph of M₁(ACh) in Area hOc1",
-    "filename": "M₁(ACh)/autoradiography",
-    "mimetype": "image/jpeg"
+     "name" : "hOc1_ar_M3.tif",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "filename" : "hOc1_ar_examples/M3/hOc1_ar_M3.tif",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png"
   },
   {
-    "name": "Sample autoradiograph of 5-HT₁ᴀ(5-HT) in Area hOc1",
-    "filename": "5-HT₁ᴀ(5-HT)/autoradiography",
-    "mimetype": "image/jpeg"
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_ar_5-HT1A.tif",
+     "filename" : "hOc1_ar_examples/5-HT1A/hOc1_ar_5-HT1A.tif"
   },
   {
-    "name": "Sample autoradiograph of kainate (Glu) in Area hOc1",
-    "filename": "kainate (Glu)/autoradiography",
-    "mimetype": "image/jpeg"
+     "name" : "hOc1_ar_NMDA.tif",
+     "referenceSpaces" : [
+        {
+           "name" : "*",
+           "fullId" : "*"
+        }
+     ],
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "filename" : "hOc1_ar_examples/NMDA/hOc1_ar_NMDA.tif",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png"
   },
   {
-    "name": "Sample autoradiograph of M₂(ACh) in Area hOc1",
-    "filename": "M₂(ACh)/autoradiography",
-    "mimetype": "image/jpeg"
+     "filename" : "hOc1_ar_examples/D1/hOc1_ar_D1.tif",
+     "name" : "hOc1_ar_D1.tif",
+     "referenceSpaces" : [
+        {
+           "name" : "*",
+           "fullId" : "*"
+        }
+     ],
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     }
   },
   {
-    "name": "Sample autoradiograph of AMPA (Glu) in Area hOc1",
-    "filename": "AMPA (Glu)/autoradiography",
-    "mimetype": "image/jpeg"
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "filename" : "hOc1_ar_examples/GABAA/hOc1_ar_GABAA.tif",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "name" : "hOc1_ar_GABAA.tif",
+     "referenceSpaces" : [
+        {
+           "name" : "*",
+           "fullId" : "*"
+        }
+     ]
   },
   {
-    "name": "Sample autoradiograph of D₁(DA) in Area hOc1",
-    "filename": "D₁(DA)/autoradiography",
-    "mimetype": "image/jpeg"
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "filename" : "hOc1_pr_examples/alpha1/hOc1_pr_alpha1.tsv",
+     "referenceSpaces" : [
+        {
+           "name" : "*",
+           "fullId" : "*"
+        }
+     ],
+     "name" : "hOc1_pr_alpha1.tsv",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined"
   },
   {
-    "name": "Sample autoradiograph of M₃(ACh) in Area hOc1",
-    "filename": "M₃(ACh)/autoradiography",
-    "mimetype": "image/jpeg"
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "filename" : "hOc1_pr_examples/NMDA/hOc1_pr_NMDA.tsv",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "name" : "hOc1_pr_NMDA.tsv",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ]
   },
   {
-    "name": "Sample autoradiograph of mGluR2/3 (Glu) in Area hOc1",
-    "filename": "mGluR2\\/3 (Glu)/autoradiography",
-    "mimetype": "image/jpeg"
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "referenceSpaces" : [
+        {
+           "name" : "*",
+           "fullId" : "*"
+        }
+     ],
+     "name" : "hOc1_ar_alpha1.tif",
+     "filename" : "hOc1_ar_examples/alpha1/hOc1_ar_alpha1.tif"
   },
   {
-    "name": "Sample autoradiograph of 5-HT₂(5-HT) in Area hOc1",
-    "filename": "5-HT₂(5-HT)/autoradiography",
-    "mimetype": "image/jpeg"
+     "filename" : "hOc1_pr_examples/kainate/hOc1_pr_kainate.tsv",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "referenceSpaces" : [
+        {
+           "name" : "*",
+           "fullId" : "*"
+        }
+     ],
+     "name" : "hOc1_pr_kainate.tsv",
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     }
   },
   {
-    "name": "Sample autoradiograph of GABAᴃ(GABA) in Area hOc1",
-    "filename": "GABAᴃ(GABA)/autoradiography",
-    "mimetype": "image/jpeg"
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png",
+     "referenceSpaces" : [
+        {
+           "name" : "*",
+           "fullId" : "*"
+        }
+     ],
+     "name" : "hOc1_pr_GABAB.tsv",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "filename" : "hOc1_pr_examples/GABAB/hOc1_pr_GABAB.tsv"
   },
   {
-    "name": "Sample profile of GABAᴀ(BZ) in Area hOc1",
-    "filename": "GABAᴀ(BZ)/profile",
-    "mimetype": "application/json"
+     "name" : "hOc1_ar_alpha2.tif",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "filename" : "hOc1_ar_examples/alpha2/hOc1_ar_alpha2.tif",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png"
   },
   {
-    "name": "Sample profile of α₁(NA) in Area hOc1",
-    "filename": "α₁(NA)/profile",
-    "mimetype": "application/json"
+     "filename" : "hOc1_pr_examples/D1/hOc1_pr_D1.tsv",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_pr_D1.tsv",
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     }
   },
   {
-    "name": "Sample profile of NMDA (Glu) in Area hOc1",
-    "filename": "NMDA (Glu)/profile",
-    "mimetype": "application/json"
+     "filename" : "hOc1_pr_examples/M2/hOc1_pr_M2.tsv",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_pr_M2.tsv",
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     }
   },
   {
-    "name": "Sample profile of GABAᴀ(GABA) in Area hOc1",
-    "filename": "GABAᴀ(GABA)/profile",
-    "mimetype": "application/json"
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "name" : "hOc1_pr_GABAA.tsv",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "filename" : "hOc1_pr_examples/GABAA/hOc1_pr_GABAA.tsv"
   },
   {
-    "name": "Sample profile of α₂(NA) in Area hOc1",
-    "filename": "α₂(NA)/profile",
-    "mimetype": "application/json"
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_pr_alpha4beta2.tsv",
+     "filename" : "hOc1_pr_examples/alpha4beta2/hOc1_pr_alpha4beta2.tsv",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png"
   },
   {
-    "name": "Sample profile of α₄β₂(ACh) in Area hOc1",
-    "filename": "α₄β₂(ACh)/profile",
-    "mimetype": "application/json"
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "filename" : "hOc1_ar_examples/M1/hOc1_ar_M1.tif",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "name" : "hOc1_ar_M1.tif",
+     "referenceSpaces" : [
+        {
+           "name" : "*",
+           "fullId" : "*"
+        }
+     ]
   },
   {
-    "name": "Sample profile of M₁(ACh) in Area hOc1",
-    "filename": "M₁(ACh)/profile",
-    "mimetype": "application/json"
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "filename" : "hOc1_ar_examples/5-HT2/hOc1_ar_5-HT2.tif",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_ar_5-HT2.tif",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined"
   },
   {
-    "name": "Sample profile of 5-HT₁ᴀ(5-HT) in Area hOc1",
-    "filename": "5-HT₁ᴀ(5-HT)/profile",
-    "mimetype": "application/json"
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "filename" : "hOc1_ar_examples/alpha4beta2/hOc1_ar_alpha4beta2.tif",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_ar_alpha4beta2.tif"
   },
   {
-    "name": "Sample profile of M₂(ACh) in Area hOc1",
-    "filename": "M₂(ACh)/profile",
-    "mimetype": "application/json"
+     "filename" : "hOc1_fp_20171202.tsv",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_fp_20171202.tsv",
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     }
   },
   {
-    "name": "Sample profile of AMPA (Glu) in Area hOc1",
-    "filename": "AMPA (Glu)/profile",
-    "mimetype": "application/json"
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_pr_M1.tsv",
+     "filename" : "hOc1_pr_examples/M1/hOc1_pr_M1.tsv",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png"
   },
   {
-    "name": "Sample profile of D₁(DA) in Area hOc1",
-    "filename": "D₁(DA)/profile",
-    "mimetype": "application/json"
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "filename" : "hOc1_pr_examples/AMPA/hOc1_pr_AMPA.tsv",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_pr_AMPA.tsv",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined"
   },
   {
-    "name": "Sample profile of M₃(ACh) in Area hOc1",
-    "filename": "M₃(ACh)/profile",
-    "mimetype": "application/json"
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_pr_5-HT2.tsv",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "filename" : "hOc1_pr_examples/5-HT2/hOc1_pr_5-HT2.tsv",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png"
   },
   {
-    "name": "Sample profile of mGluR2/3 (Glu) in Area hOc1",
-    "filename": "mGluR2\\/3 (Glu)/profile",
-    "mimetype": "application/json"
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "filename" : "hOc1_pr_examples/M3/hOc1_pr_M3.tsv",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_pr_M3.tsv",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined"
   },
   {
-    "name": "Sample profile of 5-HT₂(5-HT) in Area hOc1",
-    "filename": "5-HT₂(5-HT)/profile",
-    "mimetype": "application/json"
+     "filename" : "hOc1_ar_examples/M2/hOc1_ar_M2.tif",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_ar_M2.tif",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     }
   },
   {
-    "name": "Sample profile of GABAᴃ(GABA) in Area hOc1",
-    "filename": "GABAᴃ(GABA)/profile",
-    "mimetype": "application/json"
+     "filename" : "hOc1_ar_examples/kainate/hOc1_ar_kainate.tif",
+     "referenceSpaces" : [
+        {
+           "fullId" : "*",
+           "name" : "*"
+        }
+     ],
+     "name" : "hOc1_ar_kainate.tif",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "mimetype" : "image/png",
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     }
+  },
+  {
+     "@context" : {
+        "kg_container_root" : "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-d000045_receptors-human-hOc1_pub/v1.0/"
+     },
+     "mimetype" : "image/png",
+     "url" : "getImagePipe?kgSchema=minds%2Fcore%2Fdataset%2Fv1.0.0&kgId=e715e1f7-2079-45c4-a67f-f76b102acfce&filename=undefined",
+     "name" : "hOc1_pr_BZ.tsv",
+     "referenceSpaces" : [
+        {
+           "name" : "*",
+           "fullId" : "*"
+        }
+     ],
+     "filename" : "hOc1_pr_examples/BZ/hOc1_pr_BZ.tsv"
   }
 ]
+
 
 describe(`> dataset-preview @ https://hbp-kg-dataset-previewer.apps.hbp.eu`, () => {
   it('> querying hoc1 works', done => {
