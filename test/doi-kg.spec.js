@@ -1,4 +1,4 @@
-
+const crypto = require('crypto')
 const { JSDOM } = require('jsdom')
 const request = require('request')
 require('mocha')
@@ -30,7 +30,12 @@ describe(`> doi-kg`, () => {
           url: resp.request.uri.href,
           resources: 'usable',
           runScripts: 'dangerously',
-          userAgent: 'JSDOM headless - IAV dependency monitor runner - inm1-bda'
+          userAgent: 'JSDOM headless - IAV dependency monitor runner - inm1-bda',
+          beforeParse(window) {
+            window.crypto = {
+              getRandomValues: function(buffer) { return crypto.randomFillSync(buffer);}
+            }
+          }
         })
         try {
           await retryUntil(() => {
