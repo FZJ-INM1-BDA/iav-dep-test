@@ -5,7 +5,7 @@ name: Monitoring IAV dependency services
 
 on:
   schedule:
-    - cron: H/10 * * * *
+    - cron: '*/10 * * * *'
 
 jobs:
   build:
