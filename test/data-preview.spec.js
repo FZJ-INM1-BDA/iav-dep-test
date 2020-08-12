@@ -1,6 +1,6 @@
 const request = require('request')
 const { assert } = require('chai')
-const url = `https://hbp-kg-dataset-previewer.apps.hbp.eu/datasetPreview/e715e1f7-2079-45c4-a67f-f76b102acfce`
+const url = `https://hbp-kg-dataset-previewer.apps.hbp.eu/datasetPreview/${encodeURIComponent('minds/core/dataset/v1.0.0')}/e715e1f7-2079-45c4-a67f-f76b102acfce`
 const arr = [
   {
      "mimetype" : "image/png",
