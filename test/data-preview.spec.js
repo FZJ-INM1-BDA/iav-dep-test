@@ -1,6 +1,9 @@
 const request = require('request')
 const { assert } = require('chai')
-const url = `https://hbp-kg-dataset-previewer.apps.hbp.eu/datasetPreview/${encodeURIComponent('minds/core/dataset/v1.0.0')}/e715e1f7-2079-45c4-a67f-f76b102acfce`
+const urls = [
+   `https://hbp-kg-dataset-previewer.apps.hbp.eu/v2/${encodeURIComponent('minds/core/dataset/v1.0.0')}/e715e1f7-2079-45c4-a67f-f76b102acfce`,
+   `https://hbp-kg-dataset-previewer.apps.hbp.eu/datasetPreview/e715e1f7-2079-45c4-a67f-f76b102acfce`
+]
 const arr = [
   {
      "mimetype" : "image/png",
@@ -499,33 +502,35 @@ const arr = [
   }
 ]
 
+for (const url of urls) {
 
-describe(`> dataset-preview @ https://hbp-kg-dataset-previewer.apps.hbp.eu`, () => {
-  it('> querying hoc1 works', done => {
-    request(url, (err, resp, body) => {
-      if (err) return done(err)
-      assert(
-        resp.statusCode === 200,
-        'response code === 200'
-      )
-      const respBodyJson = JSON.parse(body)
-      assert(
-        respBodyJson.length === arr.length,
-        'fetched resp length === expected resp length'
-      )
-
-      for (const { name: eName, filename: eFilename, mimetype: eMimetype } of arr) {
-        const idx = respBodyJson.findIndex(({ name, filename, mimetype }) => {
-          return name === eName && filename === eFilename && mimetype === eMimetype
+   describe(`> dataset-preview @ ${url}`, () => {
+      it('> querying hoc1 works', done => {
+        request(url, (err, resp, body) => {
+          if (err) return done(err)
+          assert(
+            resp.statusCode === 200,
+            'response code === 200'
+          )
+          const respBodyJson = JSON.parse(body)
+          assert(
+            respBodyJson.length === arr.length,
+            'fetched resp length === expected resp length'
+          )
+    
+          for (const { name: eName, filename: eFilename, mimetype: eMimetype } of arr) {
+            const idx = respBodyJson.findIndex(({ name, filename, mimetype }) => {
+              return name === eName && filename === eFilename && mimetype === eMimetype
+            })
+    
+            assert(
+              idx >= 0,
+              `expected ${eName} can be found in response`
+            )
+          }
+    
+          done()
         })
-
-        assert(
-          idx >= 0,
-          `expected ${eName} can be found in response`
-        )
-      }
-
-      done()
+      })
     })
-  })
-})
+}
