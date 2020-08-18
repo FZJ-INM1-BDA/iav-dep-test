@@ -534,3 +534,31 @@ for (const url of urls) {
       })
     })
 }
+
+const hoc1DatasetId = `5c669b77-c981-424a-858d-fe9f527dbc07`
+
+const pmapUrls = [
+   `https://hbp-kg-dataset-previewer.apps.hbp.eu/datasetPreview/${hoc1DatasetId}`,
+   `https://hbp-kg-dataset-previewer.apps.hbp.eu/v2/${encodeURIComponent('minds/core/dataset/v1.0.0')}/${hoc1DatasetId}`
+]
+for (const url of pmapUrls) {
+   describe(`pmapurl, ${url}`, () => {
+      it('returns arr has mimetype defined', done => {
+         request(url, (err, resp, body) => {
+            if (err) throw err
+            
+            assert(
+               resp.statusCode === 200,
+               'response code === 200'
+            )
+
+            const arr = JSON.parse(body)
+            assert(
+               arr.every(item => !!item.mimetype),
+               'every item in response array has mimetype defined'
+            )
+            done()
+         })
+      })
+   })
+}
