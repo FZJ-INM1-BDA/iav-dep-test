@@ -5,23 +5,19 @@ name: Monitoring KG Dataset Preview Service
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '*/60 * * * *'
 
 jobs:
-  test-v0:
+  monitor:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [12.x]
         nehubaui-branch: [ master, staging, dev ]
-        include:
-          - ds-preview-url: 'https://hbp-kg-dataset-previewer.apps.hbp.eu/datasetPreview'
-            ds-preview-version: v0
-          - ds-preview-url: 'https://hbp-kg-dataset-previewer.apps.hbp.eu/v2'
-            ds-preview-version: v2
+        ds-preview: [ [v0, 'https://hbp-kg-dataset-previewer.apps.hbp.eu/datasetPreview'], [ v2, https://hbp-kg-dataset-previewer.apps.hbp.eu/v2 ] ]
     env:
-      DS_PREVIEW_URL: ${{ matrix.ds-preview-url }}
-      DS_PREVIEW_URL_VERSION: ${{ matrix.ds-preview-version }}
+      DS_PREVIEW_URL: ${{ matrix.ds-preview[1] }}
+      DS_PREVIEW_URL_VERSION: ${{ matrix.ds-preview[0] }}
       NEHUBA_UI_BRANCH: ${{ matrix.nehubaui-branch }}
     steps:
     - uses: actions/checkout@v2
