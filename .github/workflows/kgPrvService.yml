@@ -14,10 +14,16 @@ jobs:
       matrix:
         node-version: [12.x]
         nehubaui-branch: [ master, staging, dev ]
-        ds-preview: [ [v0, 'https://hbp-kg-dataset-previewer.apps.hbp.eu/datasetPreview'], [ v2, https://hbp-kg-dataset-previewer.apps.hbp.eu/v2 ] ]
+        ds-preview-version: [ v0, v2 ]
+        include:
+        - ds-preview-version: v0
+          ds-preview-url: 'https://hbp-kg-dataset-previewer.apps.hbp.eu/datasetPreview'
+        - ds-preview-version: v2
+          ds-preview-url: 'https://hbp-kg-dataset-previewer.apps.hbp.eu/v2'
+            
     env:
-      DS_PREVIEW_URL: ${{ matrix.ds-preview[1] }}
-      DS_PREVIEW_URL_VERSION: ${{ matrix.ds-preview[0] }}
+      DS_PREVIEW_URL: ${{ matrix.ds-preview-url }}
+      DS_PREVIEW_URL_VERSION: ${{ matrix.ds-preview-version }}
       NEHUBA_UI_BRANCH: ${{ matrix.nehubaui-branch }}
     steps:
     - uses: actions/checkout@v2
