@@ -50,7 +50,14 @@ describe(`kgPrvService @ ${DS_PREVIEW_URL} version@${DS_PREVIEW_URL_VERSION}`, (
 
                   const url = getKgPrvUrl({ kgId, kgSchema, filename })
                   it(`checking url: ${url}`, async () => {
-                    const resp = await got(url)
+                    const { body } = await got(url)
+                    const { url: prvUrl } = JSON.parse(body)
+
+                    // using HEAD method ot test if end point exists
+                    // rather than GET request, which takes longer 
+                    await got(prvUrl, {
+                      method: 'HEAD'
+                    })
                   })
                 }
               })
