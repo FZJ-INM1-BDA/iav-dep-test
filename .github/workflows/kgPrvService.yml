@@ -23,6 +23,8 @@ jobs:
         exclude:
         - nehubaui-branch: staging
           ds-preview-version: v0
+        - nehubaui-branch: dev
+          ds-preview-version: v0
             
     env:
       DS_PREVIEW_URL: ${{ matrix.ds-preview-url }}
