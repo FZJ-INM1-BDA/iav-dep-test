@@ -10,9 +10,9 @@ jobs:
       matrix:
         nehubaui-branch: [ dev ]
         protractor-spec: [ './src/advanced/nonAtlasImages.prod.e2e-spec.js' ]
-      include:
-      - nehubaui-branch: dev
-        iav-deploy-url: 'https://interactive-viewer-next.apps-dev.hbp.eu/'
+        include:
+        - nehubaui-branch: dev
+          iav-deploy-url: 'https://interactive-viewer-next.apps-dev.hbp.eu/'
     env:
       NEHUBAUI_BRANCH: ${{ matrix.nehubaui-branch }}
       PROTRACTOR_SPECS: ${{ matrix.protractor-spec }}
