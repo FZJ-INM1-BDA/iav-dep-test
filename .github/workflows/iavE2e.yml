@@ -24,11 +24,11 @@ jobs:
         ref: ${{ matrix.nehubaui-branch }}
 
     # should not need to install dep... Since it's self hosted, it should have been installed already...
-    # - name: Install dep
-    #   run: |
-    #     npm i
-    #     npm run wd -- update --versions.chrome=${CHROMIUM_VERSION}
-    #     npm i --no-save puppeteer@${PPTR_VERSION}
+    - name: Install dep
+      run: |
+        npm i
+        npm run wd -- update --versions.chrome=${CHROMIUM_VERSION}
+        npm i --no-save puppeteer@${PPTR_VERSION}
   
     - name: 'Run e2e for ${{ matrix.protractor-spec }} on ${{ matrix.iav-deploy-url }}'
       run: npm run e2e
