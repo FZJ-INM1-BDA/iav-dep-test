@@ -1,0 +1,34 @@
+name: Periodic monitoring of deployed IAV
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+jobs:
+  e2e:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        nehubaui-branch: [ dev ]
+        protractor-spec: [ './src/advanced/nonAtlasImages.prod.e2e-spec.js' ]
+      include:
+      - nehubaui-branch: dev
+        iav-deploy-url: 'https://interactive-viewer-next.apps-dev.hbp.eu/'
+    env:
+      NEHUBAUI_BRANCH: ${{ matrix.nehubaui-branch }}
+      PROTRACTOR_SPECS: ${{ matrix.protractor-spec }}
+      ATLAS_URL: ${{ matrix.iav-deploy-url }}
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        repository: 'HumanBrainProject/interactive-viewer'
+        ref: ${{ matrix.nehubaui-branch }}
+
+    # should not need to install dep... Since it's self hosted, it should have been installed already...
+    # - name: Install dep
+    #   run: |
+    #     npm i
+    #     npm run wd -- update --versions.chrome=${CHROMIUM_VERSION}
+    #     npm i --no-save puppeteer@${PPTR_VERSION}
+  
+    - name: 'Run e2e for ${{ matrix.protractor-spec }} on ${{ matrix.iav-deploy-url }}'
+      run: npm run e2e
