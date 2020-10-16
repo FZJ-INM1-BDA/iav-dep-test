@@ -20,6 +20,8 @@ jobs:
       NEHUBAUI_BRANCH: ${{ matrix.nehubaui-branch }}
       PROTRACTOR_SPECS: ${{ matrix.protractor-spec }}
       ATLAS_URL: ${{ matrix.iav-deploy-url }}
+      PPTR_VERSION: "5.3.1"
+      CHROMIUM_VERSION: "86.0.4240.0"
 
     steps:
     - uses: actions/checkout@v2
