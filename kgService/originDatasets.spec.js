@@ -56,7 +56,7 @@ describe(`kgPrvService @ ${DS_PREVIEW_URL} version@${DS_PREVIEW_URL_VERSION}`, (
                     const { url: _prvUrl } = JSON.parse(body)
                     prvUrl = _prvUrl
                     assert(
-                      !!prvUrl
+                      !!prvUrl,
                       `prvUrl is populated`
                     )
                   })
