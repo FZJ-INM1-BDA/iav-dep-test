@@ -1,4 +1,4 @@
-const { expect } = require("chai")
+const { expect, assert } = require("chai")
 const got = require('got')
 const {
   DS_PREVIEW_URL,
@@ -49,10 +49,19 @@ describe(`kgPrvService @ ${DS_PREVIEW_URL} version@${DS_PREVIEW_URL_VERSION}`, (
                 for (const { kgId, kgSchema, filename } of region.originDatasets) {
 
                   const url = getKgPrvUrl({ kgId, kgSchema, filename })
-                  it(`checking url: ${url}`, async () => {
+                  let prvUrl
+                  it(`[dsPrvService] check dsPrv service for ${url}`, async () => {
+                    
                     const { body } = await got(url)
-                    const { url: prvUrl } = JSON.parse(body)
+                    const { url: _prvUrl } = JSON.parse(body)
+                    prvUrl = _prvUrl
+                  })
 
+                  it(`[cscs][switchObjStore] checking prvUrl: ${prvUrl} using HEAD method`, async () => {
+                    assert(
+                      !!prvUrl,
+                      `prvUrl is populated`
+                    )
                     // using HEAD method ot test if end point exists
                     // rather than GET request, which takes longer 
                     await got(prvUrl, {
