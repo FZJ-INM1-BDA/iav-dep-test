@@ -55,6 +55,10 @@ describe(`kgPrvService @ ${DS_PREVIEW_URL} version@${DS_PREVIEW_URL_VERSION}`, (
                     const { body } = await got(url)
                     const { url: _prvUrl } = JSON.parse(body)
                     prvUrl = _prvUrl
+                    assert(
+                      !!prvUrl
+                      `prvUrl is populated`
+                    )
                   })
 
                   it(`[cscs][switchObjStore] checking prvUrl: ${prvUrl} using HEAD method`, async () => {
