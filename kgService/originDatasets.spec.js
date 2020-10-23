@@ -50,26 +50,29 @@ describe(`kgPrvService @ ${DS_PREVIEW_URL} version@${DS_PREVIEW_URL_VERSION}`, (
 
                   const url = getKgPrvUrl({ kgId, kgSchema, filename })
                   let prvUrl
-                  it(`[dsPrvService] check dsPrv service for ${url}`, async () => {
-                    
-                    const { body } = await got(url)
-                    const { url: _prvUrl } = JSON.parse(body)
-                    prvUrl = _prvUrl
-                    assert(
-                      !!prvUrl,
-                      `prvUrl is populated`
-                    )
-                  })
 
-                  it(`[cscs][switchObjStore] checking prvUrl: ${prvUrl} using HEAD method`, async () => {
-                    assert(
-                      !!prvUrl,
-                      `prvUrl is populated`
-                    )
-                    // using HEAD method ot test if end point exists
-                    // rather than GET request, which takes longer 
-                    await got(prvUrl, {
-                      method: 'HEAD'
+                  describe('[dsPrvService]', () => {
+                    it(`check dsPrv service for ${url}`, async () => {
+                      const { body } = await got(url)
+                      const { url: _prvUrl } = JSON.parse(body)
+                      prvUrl = _prvUrl
+                      assert(
+                        !!prvUrl,
+                        `prvUrl is populated`
+                      )
+                    })
+                  })
+                  describe('[cscs]', () => {
+                    it(`checking prvUrl: using HEAD method`, async () => {
+                      // using HEAD method ot test if end point exists
+                      // rather than GET request, which takes longer
+                      assert(
+                        !!prvUrl,
+                        `prvUrl is populated`
+                      )
+                      await got(prvUrl, {
+                        method: 'HEAD'
+                      })
                     })
                   })
                 }
