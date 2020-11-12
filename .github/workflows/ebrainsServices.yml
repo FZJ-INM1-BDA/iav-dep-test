@@ -19,6 +19,7 @@ jobs:
       OAUTH_V2_CLIENT_ID: ${{ secrets.OAUTH_V2_CLIENT_ID }}
       OAUTH_V2_REDIRECT_URL: ${{ secrets.OAUTH_V2_REDIRECT_URL }}
       OAUTH_V2_SCOPES: ${{ secrets.OAUTH_V2_SCOPES }}
+      OAUTH_V2_ENDPOINT: ${{ secrets.OAUTH_V2_ENDPOINT }}
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
