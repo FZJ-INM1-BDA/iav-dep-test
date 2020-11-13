@@ -24,6 +24,7 @@ describe('> v2', () => {
       }
     }, (err, resp, body) => {
       if (err) throw err
+      if (resp.statusCode === 200) return done()
       if (!resp.headers['location']) {
         return done(new Error(`response header location is expected, was not found: ${JSON.stringify(resp.headers)}`))
       }
