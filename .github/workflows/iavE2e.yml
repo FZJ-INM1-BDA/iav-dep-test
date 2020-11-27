@@ -1,4 +1,4 @@
-name: Periodic monitoring of deployed IAV - dev [hourly]
+name: "[iav] [dev] [hourly] e2e"
 
 on:
   schedule:
@@ -12,6 +12,7 @@ jobs:
         protractor-spec: [ 
           './src/advanced/nonAtlasImages.prod.e2e-spec.js',
           './src/advanced/browsingForDatasets.prod.e2e-spec.js',
+          './src/advanced/favDatasets.prod.e2e-spec.js',
           './src/selecting/region.prod.e2e-spec.js',
           './src/layout/home.prod.e2e-spec.js'
         ]
