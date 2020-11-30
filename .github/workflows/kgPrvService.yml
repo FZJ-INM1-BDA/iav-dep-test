@@ -10,8 +10,8 @@ on:
 jobs:
   monitor:
     runs-on: ubuntu-latest
-    fail-fast: false
     strategy:
+      fail-fast: false
       matrix:
         node-version: [12.x]
         nehubaui-branch: [ master, staging, dev ]
