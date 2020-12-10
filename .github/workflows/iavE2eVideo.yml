@@ -1,20 +1,18 @@
-name: "[iav] [dev] [hourly] e2e"
+name: "[iav] [dev] [expmt] e2e"
 
 on:
-  schedule:
-    - cron: '*/60 * * * *'
+  push:
+    branches:
+      - master
+
 jobs:
   e2e:
-    runs-on: [self-hosted, headless]
+    runs-on: [self-hosted, non-headless, gpu]
     strategy:
       matrix:
         nehubaui-branch: [ dev ] # only use dev here
         protractor-spec: [ 
-          './src/advanced/nonAtlasImages.prod.e2e-spec.js',
-          './src/advanced/browsingForDatasets.prod.e2e-spec.js',
-          './src/advanced/favDatasets.prod.e2e-spec.js',
-          './src/selecting/region.prod.e2e-spec.js',
-          './src/layout/home.prod.e2e-spec.js'
+          './src/advanced/favDatasets.prod.e2e-spec.js'
         ]
         include:
         - nehubaui-branch: dev
@@ -25,6 +23,9 @@ jobs:
       ATLAS_URL: ${{ matrix.iav-deploy-url }}
       PPTR_VERSION: "5.3.1"
       CHROMIUM_VERSION: "86.0.4240.0"
+      RECORDING_FLAG: "1"
+      ENABLE_GPU: "1"
+      DISABLE_CHROME_HEADLESS: "1"
 
     steps:
     - uses: actions/checkout@v2
@@ -38,6 +39,13 @@ jobs:
         npm i
         npm run wd -- update --versions.chrome=${CHROMIUM_VERSION}
         npm i --no-save puppeteer@${PPTR_VERSION}
+
+    # - name: Start recording
+    #   run: |
+    #     tmux new-session -d -s iav-recording 'ffmpeg -f x11grab -video_size 1920x1080 -framerate 25 -i :0 output.mp4'
   
     - name: 'Run e2e for ${{ matrix.protractor-spec }} on ${{ matrix.iav-deploy-url }}'
       run: npm run e2e
+
+    # - name: Stop recording
+    #   run: tmux send-keys -t iav-recording q
