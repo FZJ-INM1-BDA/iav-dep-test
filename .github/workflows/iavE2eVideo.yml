@@ -48,9 +48,11 @@ jobs:
       run: npm run e2e
 
     - name: Stop recording
+      if: ${{ always() }}
       run: tmux send-keys -t iav-recording q
 
     - uses: actions/upload-artifact@v2
+      if: ${{ always() }}
       with:
         name: output
         path: output.mp4
