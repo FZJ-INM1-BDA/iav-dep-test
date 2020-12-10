@@ -51,6 +51,10 @@ jobs:
       if: ${{ always() }}
       run: tmux send-keys -t iav-recording q
 
+    - name: Sleep for 10s, allowing ffmpeg to.... finish doing its thing?
+      if: ${{ always() }}
+      run: sleep 10
+
     - uses: actions/upload-artifact@v2
       if: ${{ always() }}
       with:
