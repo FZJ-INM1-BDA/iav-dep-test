@@ -15,17 +15,10 @@ jobs:
       matrix:
         node-version: [12.x]
         nehubaui-branch: [ master, staging, dev ]
-        ds-preview-version: [ v0, v2 ]
+        ds-preview-version: [ v2 ]
         include:
-        - ds-preview-version: v0
-          ds-preview-url: 'https://hbp-kg-dataset-previewer.apps.hbp.eu/datasetPreview'
         - ds-preview-version: v2
           ds-preview-url: 'https://hbp-kg-dataset-previewer.apps.hbp.eu/v2'
-        exclude:
-        - nehubaui-branch: staging
-          ds-preview-version: v0
-        - nehubaui-branch: dev
-          ds-preview-version: v0
             
     env:
       DS_PREVIEW_URL: ${{ matrix.ds-preview-url }}

@@ -16,7 +16,10 @@ const jsonFiles = [
   'allenMouse.json'
 ]
 
-const getGetKgPrvUrl = ({ version, baseUrl }) => ({ kgSchema, kgId, filename }) =>  `${baseUrl}/${ version === 'v0' ? '' : (encodeURIComponent(kgSchema) + '/') }${encodeURIComponent(kgId)}/${encodeURIComponent(filename)}`
+const getGetKgPrvUrl = ({ version, baseUrl }) => ({ kgSchema, kgId, filename }) =>  {
+  if (!filename) return null
+  return `${baseUrl}/${ version === 'v0' ? '' : (encodeURIComponent(kgSchema) + '/') }${encodeURIComponent(kgId)}/${encodeURIComponent(filename)}`
+}
 
 const getKgPrvUrl = getGetKgPrvUrl({ version: DS_PREVIEW_URL_VERSION, baseUrl: DS_PREVIEW_URL })
 
@@ -49,6 +52,7 @@ describe(`kgPrvService @ ${DS_PREVIEW_URL} version@${DS_PREVIEW_URL_VERSION}`, (
                 for (const { kgId, kgSchema, filename } of region.originDatasets) {
 
                   const url = getKgPrvUrl({ kgId, kgSchema, filename })
+                  if (!url) return
                   let prvUrl
 
                   describe('[dsPrvService]', () => {
