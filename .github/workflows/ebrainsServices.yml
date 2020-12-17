@@ -20,6 +20,10 @@ jobs:
       OAUTH_V2_REDIRECT_URL: ${{ secrets.OAUTH_V2_REDIRECT_URL }}
       OAUTH_V2_SCOPES: ${{ secrets.OAUTH_V2_SCOPES }}
       OAUTH_V2_ENDPOINT: ${{ secrets.OAUTH_V2_ENDPOINT }}
+      VOLUBA_OAUTH_V2_CLIENT_ID: ${{ secrets.VOLUBA_OAUTH_V2_CLIENT_ID }}
+      VOLUBA_OAUTH_V2_REDIRECT_URL: ${{ secrets.VOLUBA_OAUTH_V2_REDIRECT_URL }}
+      VOLUBA_OAUTH_V2_SCOPES: ${{ secrets.VOLUBA_OAUTH_V2_SCOPES }}
+      VOLUBA_OAUTH_V2_ENDPOINT: ${{ secrets.VOLUBA_OAUTH_V2_ENDPOINT }}
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
