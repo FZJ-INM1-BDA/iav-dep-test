@@ -31,4 +31,4 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm i
-    - run: npm run mocha -- './kgService/**.js' --timeout 5000
+    - run: npm run mocha -- './kgService/**.js' --timeout 5000 --retries 5
