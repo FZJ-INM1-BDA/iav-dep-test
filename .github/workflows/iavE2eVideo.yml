@@ -23,9 +23,9 @@ jobs:
       ATLAS_URL: ${{ matrix.iav-deploy-url }}
       PPTR_VERSION: "5.3.1"
       CHROMIUM_VERSION: "86.0.4240.0"
-      RECORDING_FLAG: "1"
-      ENABLE_GPU: "1"
-      DISABLE_CHROME_HEADLESS: "1"
+      # RECORDING_FLAG: "1"
+      # ENABLE_GPU: "1"
+      # DISABLE_CHROME_HEADLESS: "1"
 
     steps:
     - uses: actions/checkout@v2
@@ -40,23 +40,23 @@ jobs:
         npm run wd -- update --versions.chrome=${CHROMIUM_VERSION}
         npm i --no-save puppeteer@${PPTR_VERSION}
 
-    - name: Start recording
-      run: |
-        tmux new-session -d -s iav-recording 'ffmpeg -f x11grab -video_size 1920x1080 -framerate 25 -i :0 output.mp4'
+    # - name: Start recording
+    #   run: |
+    #     tmux new-session -d -s iav-recording 'ffmpeg -f x11grab -video_size 1920x1080 -framerate 25 -i :0 output.mp4'
   
     - name: 'Run e2e for ${{ matrix.protractor-spec }} on ${{ matrix.iav-deploy-url }}'
       run: npm run e2e
 
-    - name: Stop recording
-      if: ${{ always() }}
-      run: tmux send-keys -t iav-recording q
+    # - name: Stop recording
+    #   if: ${{ always() }}
+    #   run: tmux send-keys -t iav-recording q
 
-    - name: Sleep for 10s, allowing ffmpeg to.... finish doing its thing?
-      if: ${{ always() }}
-      run: sleep 10
+    # - name: Sleep for 10s, allowing ffmpeg to.... finish doing its thing?
+    #   if: ${{ always() }}
+    #   run: sleep 10
 
-    - uses: actions/upload-artifact@v2
-      if: ${{ always() }}
-      with:
-        name: output
-        path: output.mp4
+    # - uses: actions/upload-artifact@v2
+    #   if: ${{ always() }}
+    #   with:
+    #     name: output
+    #     path: output.mp4
