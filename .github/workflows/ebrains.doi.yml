@@ -22,4 +22,4 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm i
-    - run: npm run mocha -- './ebrains_services/doi-kg.spec.js'
+    - run: npm run mocha -- './ebrains_services/doi-kg.spec.js' --timeout 10000

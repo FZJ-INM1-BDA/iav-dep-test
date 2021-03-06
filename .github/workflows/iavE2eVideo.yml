@@ -3,7 +3,7 @@ name: "[iav] [dev] [expmt] e2e"
 on:
   push:
     branches:
-      - master
+      - never_video # so we don't end up accidentally running this job
 
 jobs:
   e2e:
