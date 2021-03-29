@@ -7,6 +7,7 @@ This repo contains the API tests for dependencies of interactive atlas viewer.
 | name | status | 
 | --- | --- |
 | iav data/metadata query | [![[iav] [10min] data query](https://github.com/FZJ-INM1-BDA/iav-dep-test/actions/workflows/iav.query.yml/badge.svg)](https://github.com/FZJ-INM1-BDA/iav-dep-test/actions/workflows/iav.query.yml) |
+| iav saneUrl | [![[iav] [2hr] saneurl api](https://github.com/FZJ-INM1-BDA/iav-dep-test/actions/workflows/iav.saneUrl.yml/badge.svg)](https://github.com/FZJ-INM1-BDA/iav-dep-test/actions/workflows/iav.saneUrl.yml) |
 
 ## ebrain services
 

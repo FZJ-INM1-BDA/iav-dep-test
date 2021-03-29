@@ -1,0 +1,33 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: "[iav] [2hr] saneurl api"
+
+on:
+  schedule:
+    - cron: '14 */2 * * *'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      max-parallel: 1
+      matrix:
+        node-version: [12.x]
+        api-endpoint: [
+          'https://interactive-viewer-staging.apps.hbp.eu',
+          'https://atlases.ebrains.eu/viewer-staging'
+        ]
+
+    env:
+      API_ENDPOINT: ${{ matrix.api-endpoint }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm i
+    - run: npm run mocha -- './iav/saneUrl.spec.js' --timeout 5000
