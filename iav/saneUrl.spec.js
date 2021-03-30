@@ -116,46 +116,4 @@ describe(`> saneUrl api of ${API_ENDPOINT}`, () => {
         })
     })
   })
-
-  describe('> rate limiter works', () => {
-
-    const getPostStatus = uuid => new Promise((rs, rj) => {
-      request.post(
-        `${API_ENDPOINT}/saneUrl/${uuid}`,
-        {
-          headers: {
-            ['content-type']: 'application/json'
-          },
-          body: JSON.stringify(payload)
-        },
-        async (err, resp, body) => {
-          if (err) return rj(err)
-          rs(resp.statusCode)
-        }
-      )
-    })
-
-    it('> 6 requests within 5 sec will result in at least 1 429', async () => {
-      const randomUuids = []
-      while (randomUuids.length < 6) {
-        const newUuid = await getRandomUuid()
-        const existInArray = randomUuids.includes(newUuid)
-        if (
-          !existInArray
-        ) {
-          randomUuids.push(newUuid)
-        }
-      }
-
-      const respStatuses = await Promise.all(
-        randomUuids.map(getPostStatus)
-      )
-
-      assert(
-        respStatuses.some(s => s === 429),
-        `expecting rate limiting to hit some responses`
-      )
-      
-    })
-  })
 })

@@ -16,7 +16,7 @@ jobs:
       max-parallel: 1
       matrix:
         node-version: [12.x]
-        api-endpoint: [ 'https://atlases.ebrains.eu/viewer-staging' ]
+        api-endpoint: [ 'https://interactive-viewer-staging.apps.hbp.eu', 'https://atlases.ebrains.eu/viewer-staging' ]
 
     env:
       API_ENDPOINT: ${{ matrix.api-endpoint }}
