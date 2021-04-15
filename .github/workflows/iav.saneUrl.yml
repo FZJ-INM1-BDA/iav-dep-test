@@ -16,7 +16,7 @@ jobs:
       max-parallel: 1
       matrix:
         node-version: [12.x]
-        api-endpoint: [ 'https://interactive-viewer-staging.apps.hbp.eu', 'https://atlases.ebrains.eu/viewer-staging' ]
+        api-endpoint: [ 'https://interactive-viewer.apps.hbp.eu', 'https://atlases.ebrains.eu/viewer' ]
 
     env:
       API_ENDPOINT: ${{ matrix.api-endpoint }}
@@ -27,4 +27,4 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm i
-    - run: npm run mocha -- './iav/saneUrl.spec.js' --timeout 5000
+    - run: npm run mocha -- './iav/saneUrl.spec.js' --timeout 10000
