@@ -1,7 +1,7 @@
 const request = require('request')
 const { assert, expect } = require('chai')
 
-const connectivityBase = `https://connectivityquery-connectivity.apps-dev.hbp.eu`
+const connectivityBase = `https://connectivity-query-v1-1-connectivity.apps.hbp.eu`
 
 describe(`> connectivity backend @ ${connectivityBase}`, () => {
   describe(`> metadata`, () => {
