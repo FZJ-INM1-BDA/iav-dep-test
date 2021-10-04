@@ -3,11 +3,44 @@ const { expect } = require('chai')
 require('mocha')
 
 const apiEndPoint = `https://kg.humanbrainproject.eu/query/`
-const OIDC_TOKEN_URL = process.env.OIDC_TOKEN_URL
-const OIDC_CLIENT_ID = process.env.OIDC_CLIENT_ID
-const OIDC_CLIENT_SECRET = process.env.OIDC_CLIENT_SECRET
-const JWT_REFRESH_TOKEN = process.env.JWT_REFRESH_TOKEN
 const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN
+
+const {
+  OAUTH_V2_SA_CLIENT_ID,
+  OAUTH_V2_SA_CLIENT_SECRET,
+  OAUTH_V2_SA_ENDPOINT='https://iam.ebrains.eu/auth/realms/hbp/protocol/openid-connect',
+  OAUTH_V2_SA_SCOPES='',
+} = process.env
+
+function getAccessToken(){
+  return new Promise((rs, rj) => {
+    request({
+      uri: `${OAUTH_V2_SA_ENDPOINT}/token`,
+      method: 'POST',
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      form: {
+        grant_type: 'client_credentials',
+        client_id: OAUTH_V2_SA_CLIENT_ID,
+        client_secret: OAUTH_V2_SA_CLIENT_SECRET,
+      }
+    }, (error, resp, body) => {
+      if (error) return rj(error)
+      if (resp.statusCode >= 400) {
+        const {
+          statusCode,
+          statusMessage,
+          body
+        } = resp
+        return rj({ statusCode, statusMessage, body })
+      }
+      const json = JSON.parse(body)
+      rs(json['access_token'])
+    })
+  })
+}
+
 let fetchedAccessToken
 
 const queryBody = {
@@ -42,45 +75,16 @@ const queryBody = {
 describe(`> REST end for kg @ ${apiEndPoint}`, () => {
 
   before(done => {
-    if (
-      !OIDC_TOKEN_URL ||
-      !OIDC_CLIENT_ID ||
-      !OIDC_CLIENT_SECRET ||
-      !JWT_REFRESH_TOKEN
-    ) {
-      return done()
-    }
-    request(`${OIDC_TOKEN_URL}`, {
-      method: 'post',
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      form: {
-        grant_type: 'refresh_token',
-        client_id: OIDC_CLIENT_ID,
-        client_secret: OIDC_CLIENT_SECRET,
-        refresh_token: JWT_REFRESH_TOKEN
-      }
-    }, (err, resp, body) => {
-      if (err) throw err
-      if (resp.statusCode >= 500) {
-        console.warn(`cannot get jwt access token`, resp.statusCode, resp.statusMessage)
+    getAccessToken()
+      .then(token => {
+        fetchedAccessToken = token
         done()
-      }
-      try {
-        const { access_token, error } = JSON.parse(body)
-        if (error) console.warn(`refreshing token error`, error)
-        fetchedAccessToken = access_token
-      } catch (e) {
-        console.warn(`parsing body error`, e)
-      }
-      done()
-    })
+      })
+      .catch(done)
   })
 
   describe('> minds/core/dataset/v1.0.0', () => {
     it('> fetches results', done => {
-
       request(`${apiEndPoint}/minds/core/dataset/v1.0.0/instances?size=32`, {
         method: 'POST',
         auth: {
