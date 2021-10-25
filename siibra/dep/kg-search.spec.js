@@ -13,6 +13,7 @@ const {
 } = process.env
 
 function getAccessToken(){
+  console.log(`getting access token from ${OAUTH_V2_SA_ENDPOINT}`)
   return new Promise((rs, rj) => {
     request({
       uri: `${OAUTH_V2_SA_ENDPOINT}/token`,
@@ -24,6 +25,7 @@ function getAccessToken(){
         grant_type: 'client_credentials',
         client_id: OAUTH_V2_SA_CLIENT_ID,
         client_secret: OAUTH_V2_SA_CLIENT_SECRET,
+        scope: OAUTH_V2_SA_SCOPES
       }
     }, (error, resp, body) => {
       if (error) return rj(error)
@@ -85,14 +87,14 @@ describe(`> REST end for kg @ ${apiEndPoint}`, () => {
 
   describe('> minds/core/dataset/v1.0.0', () => {
     it('> fetches results', done => {
-      request(`${apiEndPoint}/minds/core/dataset/v1.0.0/instances?size=32`, {
+      request(`${apiEndPoint}/minds/core/dataset/v1.0.0/instances?size=32&databaseScope=RELEASED`, {
         method: 'POST',
         auth: {
           bearer: JWT_ACCESS_TOKEN || fetchedAccessToken
         },
         headers: {
           accept: 'application/json',
-          ['Content-Type']: 'application/ld+json'
+          'Content-Type': 'application/ld+json'
         },
         body: JSON.stringify(queryBody)
       }, (err, resp, body) => {
