@@ -25,4 +25,4 @@ jobs:
         python -m pip install pytest requests
     - name: Run test
       run: |
-        pytest ./e2e_tests/
+        pytest ./e2e/
