@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        end-point: [ 'https://siibra-api-stable.apps.hbp.eu/','https://interactive-viewer.apps.hbp.eu/', 'https://atlases.ebrains.eu/viewer']
+        end-point: [ 'https://siibra-api-stable.apps.hbp.eu/', 'https://interactive-viewer.apps.hbp.eu/', 'https://atlases.ebrains.eu/viewer']
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 12
@@ -18,6 +18,6 @@ jobs:
       with:
         node-version: 12
     - run: |
-      npm i
-      SIIBRA_EXPLORER_ENDPOINT=${{ matrix.end-point }} npm run mocha -- './siibra/explorer/index.spec.js' --timeout 5000
+        npm i
+        SIIBRA_EXPLORER_ENDPOINT=${{ matrix.end-point }} npm run mocha -- './siibra/explorer/index.spec.js' --timeout 5000
 
