@@ -3,8 +3,6 @@ name: "[siibra-explorer] [10min]"
 on:
   schedule:
     - cron: '*/10 * * * *'
-env:
-  SIIBRA_EXPLORER_ENDPOINT: https://siibra-api-stable.apps.hbp.eu/
 jobs:
   build:
     
@@ -12,12 +10,14 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]
+        end-point: [ 'https://siibra-api-stable.apps.hbp.eu/','https://interactive-viewer.apps.hbp.eu/', 'https://atlases.ebrains.eu/viewer']
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 12
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm i
-    - run: npm run mocha -- './siibra/explorer/index.spec.js' --timeout 5000
+        node-version: 12
+    - run: |
+      npm i
+      SIIBRA_EXPLORER_ENDPOINT=${{ matrix.end-point }} npm run mocha -- './siibra/explorer/index.spec.js' --timeout 5000
+

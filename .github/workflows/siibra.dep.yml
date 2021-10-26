@@ -3,8 +3,7 @@ name: "[siibra/dep] [10min]"
 on:
   schedule:
     - cron: '*/10 * * * *'
-env:
-  SIIBRA_EXPLORER_ENDPOINT: https://siibra-api-stable.apps.hbp.eu/
+
 jobs:
   build:
     
@@ -16,14 +15,11 @@ jobs:
       OAUTH_V2_SA_ENDPOINT: ${{ secrets.OAUTH_V2_SA_ENDPOINT }}
       OAUTH_V2_SA_SCOPES: ${{ secrets.OAUTH_V2_SA_SCOPES }}
 
-    strategy:
-      matrix:
-        node-version: [12.x]
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 12
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 12
     - run: npm i
     - run: npm run mocha -- './siibra/dep/*.spec.js' --timeout 5000
