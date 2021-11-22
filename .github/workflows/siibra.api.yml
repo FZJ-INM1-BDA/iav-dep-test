@@ -5,6 +5,7 @@ on:
     - cron: '*/10 * * * *'
 env:
   SIIBRA_API_E2E_BASE_URL: https://siibra-api-stable.apps.hbp.eu
+  SIIBRA_MONITORING_SIIBRA_API: ${{ secrets.SIIBRA_MONITORING_SIIBRA_API }}
 
 jobs:
   e2e-test:
@@ -26,3 +27,9 @@ jobs:
     - name: Run test
       run: |
         pytest ./e2e/
+    - if: success()
+      run: |
+        if [ -z "$SIIBRA_MONITORING_SIIBRA_API" ]
+        then
+          curl "$SIIBRA_MONITORING_SIIBRA_API"
+        fi

@@ -7,6 +7,9 @@ on:
   schedule:
     - cron: '*/10 * * * *'
 
+env:
+  SIIBRA_MONITORING_DOI_REDIRECT: ${{ secrets.SIIBRA_MONITORING_DOI_REDIRECT }}
+
 jobs:
   build:
 
@@ -23,3 +26,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm i
     - run: npm run mocha -- './ebrains_services/doi-kg.spec.js' --timeout 10000
+    - if: success()
+      run: |
+        if [ -z "$SIIBRA_MONITORING_DOI_REDIRECT" ]
+        then
+          curl "$SIIBRA_MONITORING_DOI_REDIRECT"
+        fi

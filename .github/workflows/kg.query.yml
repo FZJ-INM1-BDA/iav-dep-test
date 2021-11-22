@@ -1,11 +1,11 @@
-name: "[siibra/dep] [10min]"
+name: "[kg/query] [10min]"
 
 on:
   schedule:
     - cron: '*/10 * * * *'
 
 env:
-  SIIBRA_MONITORING_SIIBRA_DEPENDENCIES: ${{ secrets.SIIBRA_MONITORING_SIIBRA_DEPENDENCIES }}
+  SIIBRA_MONITORING_KG_QUERY: ${{ secrets.SIIBRA_MONITORING_KG_QUERY }}
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
     - run: npm run mocha -- './siibra/dep/*.spec.js' --timeout 5000
     - if: success()
       run: |
-        if [ -z "$SIIBRA_MONITORING_SIIBRA_DEPENDENCIES" ]
+        if [ -z "$SIIBRA_MONITORING_KG_QUERY" ]
         then
-          curl "$SIIBRA_MONITORING_SIIBRA_DEPENDENCIES"
+          curl "$SIIBRA_MONITORING_KG_QUERY"
         fi
