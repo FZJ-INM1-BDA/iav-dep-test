@@ -28,7 +28,7 @@ jobs:
     - run: npm run mocha -- './siibra/dep/*.spec.js' --timeout 5000
     - if: success()
       run: |
-        if [ -z "$SIIBRA_MONITORING_KG_QUERY" ]
+        if [ ! -z "$SIIBRA_MONITORING_KG_QUERY" ]
         then
           curl "$SIIBRA_MONITORING_KG_QUERY"
         fi

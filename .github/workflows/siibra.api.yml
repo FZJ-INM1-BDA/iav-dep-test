@@ -29,7 +29,7 @@ jobs:
         pytest ./e2e/
     - if: success()
       run: |
-        if [ -z "$SIIBRA_MONITORING_SIIBRA_API" ]
+        if [ ! -z "$SIIBRA_MONITORING_SIIBRA_API" ]
         then
           curl "$SIIBRA_MONITORING_SIIBRA_API"
         fi

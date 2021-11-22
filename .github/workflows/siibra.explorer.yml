@@ -27,7 +27,7 @@ jobs:
 
     - if: success()
       run: |
-        if [ -z "$SIIBRA_MONITORING_EXPLORER" ]
+        if [ ! -z "$SIIBRA_MONITORING_EXPLORER" ]
         then
           curl "$SIIBRA_MONITORING_EXPLORER"
         fi

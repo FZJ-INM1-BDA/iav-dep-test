@@ -37,7 +37,7 @@ jobs:
     - run: npm run mocha -- './ebrains_services/oauth.spec.js'
     - if: success()
       run: |
-        if [ -z "$SIIBRA_MONITORING_OAUTH" ]
+        if [ ! -z "$SIIBRA_MONITORING_OAUTH" ]
         then
           curl "$SIIBRA_MONITORING_OAUTH"
         fi
