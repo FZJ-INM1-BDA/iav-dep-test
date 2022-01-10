@@ -14,17 +14,17 @@ jobs:
 
     strategy:
       max-parallel: 1
+      fail-fast: false
       matrix:
-        node-version: [12.x]
         api-endpoint: [ 'https://interactive-viewer.apps.hbp.eu', 'https://atlases.ebrains.eu/viewer' ]
 
     env:
       API_ENDPOINT: ${{ matrix.api-endpoint }}
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 12.x
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 12.x
     - run: npm i
-    - run: npm run mocha -- './iav/saneUrl.spec.js' --timeout 10000
+    - run: npm run mocha -- './siibra/explorer/saneUrl.spec.js' --timeout 10000
