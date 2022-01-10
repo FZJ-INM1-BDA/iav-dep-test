@@ -10,6 +10,8 @@ const {
   OAUTH_V2_SA_CLIENT_SECRET,
   OAUTH_V2_SA_ENDPOINT='https://iam.ebrains.eu/auth/realms/hbp/protocol/openid-connect',
   OAUTH_V2_SA_SCOPES='',
+  KG_INSTANCE_ID,
+  KG_DS_QUERY_ID="interactiveViewerKgQuery-v1_0",
 } = process.env
 
 function getAccessToken(){
@@ -105,5 +107,44 @@ describe(`> REST end for kg @ ${apiEndPoint}`, () => {
         done()
       })
     })
+
+    // Even though the query is stored, possibly due to the many links it queries, takes ~ 10 seconds to complete
+    // it('> fetched stored query', done => {
+    //   request(`${apiEndPoint}/minds/core/dataset/v1.0.0/${KG_DS_QUERY_ID}/instances?size=32&databaseScope=RELEASED`, {
+    //     method: 'GET',
+    //     auth: {
+    //       bearer: JWT_ACCESS_TOKEN || fetchedAccessToken
+    //     },
+    //     headers: {
+    //       accept: 'application/json',
+    //     },
+    //   }, (err, resp, body) => {
+    //     if (err) throw err
+    //     if (resp.statusCode >= 400) throw resp.statusCode
+    //     const jsonResponse = JSON.parse(body)
+    //     const { total, results } = jsonResponse
+    //     expect(total).to.be.greaterThan(500)
+    //     done()
+    //   })
+    // })
+
+    if (KG_INSTANCE_ID) {
+      it(`> can fetch kg instance id at ${KG_INSTANCE_ID}`, done => {
+        request(`${apiEndPoint}/minds/core/dataset/v1.0.0/${KG_DS_QUERY_ID}/instances/${KG_INSTANCE_ID}?databaseScope=RELEASED`, {
+          method: 'GET',
+          auth: {
+            bearer: JWT_ACCESS_TOKEN || fetchedAccessToken
+          },
+          headers: {
+            accept: 'application/json',
+          },
+        }, (err, resp, body) => {
+          if (err) throw err
+          if (resp.statusCode >= 400) throw resp.statusCode
+          const parsedBody = JSON.parse(body)
+          done()
+        })
+      })
+    }
   })
 })
