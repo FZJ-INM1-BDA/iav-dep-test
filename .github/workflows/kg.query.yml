@@ -7,15 +7,13 @@ on:
 env:
   SIIBRA_MONITORING_KG_QUERY: ${{ secrets.SIIBRA_MONITORING_KG_QUERY }}
   SIIBRA_MONITORING_KG_QUERY_INSTANCE: ${{ secrets.SIIBRA_MONITORING_KG_QUERY_INSTANCE }}
-
+  OAUTH_V2_SA_CLIENT_ID: ${{ secrets.OAUTH_V2_SA_CLIENT_ID }}
+  OAUTH_V2_SA_CLIENT_SECRET: ${{ secrets.OAUTH_V2_SA_CLIENT_SECRET }}
+  OAUTH_V2_SA_ENDPOINT: ${{ secrets.OAUTH_V2_SA_ENDPOINT }}
+  OAUTH_V2_SA_SCOPES: ${{ secrets.OAUTH_V2_SA_SCOPES }}
 jobs:
   general-query:
     runs-on: ubuntu-latest
-    env:
-      OAUTH_V2_SA_CLIENT_ID: ${{ secrets.OAUTH_V2_SA_CLIENT_ID }}
-      OAUTH_V2_SA_CLIENT_SECRET: ${{ secrets.OAUTH_V2_SA_CLIENT_SECRET }}
-      OAUTH_V2_SA_ENDPOINT: ${{ secrets.OAUTH_V2_SA_ENDPOINT }}
-      OAUTH_V2_SA_SCOPES: ${{ secrets.OAUTH_V2_SA_SCOPES }}
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 12
