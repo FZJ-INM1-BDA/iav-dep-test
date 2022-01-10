@@ -64,6 +64,7 @@ jobs:
           exit 1
         fi
         echo KG_INSTANCE_ID: $KG_INSTANCE_ID
+        npm i
         npm run mocha -- './siibra/dep/kg-query.spec.js' --timeout 5000
     - name: Report to monitoring
       if: success()
