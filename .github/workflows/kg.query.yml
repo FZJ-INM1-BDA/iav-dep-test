@@ -33,6 +33,7 @@ jobs:
         fi
 
   specific-query:
+    runs-on: ubuntu-latest
     needs: general-query
     continue-on-error: true
     strategy:

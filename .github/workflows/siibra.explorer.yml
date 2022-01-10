@@ -13,8 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         end-point: [ 'https://siibra-api-stable.apps.hbp.eu/', 'https://interactive-viewer.apps.hbp.eu/', 'https://atlases.ebrains.eu/viewer']
+    env:
+      SIIBRA_EXPLORER_ENDPOINT: ${{ matrix.end-point }}
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 12
@@ -23,7 +26,7 @@ jobs:
         node-version: 12
     - run: |
         npm i
-        SIIBRA_EXPLORER_ENDPOINT=${{ matrix.end-point }} npm run mocha -- './siibra/explorer/index.spec.js' --timeout 5000
+        npm run mocha -- './siibra/explorer/index.spec.js' --timeout 5000
 
     - if: success()
       run: |

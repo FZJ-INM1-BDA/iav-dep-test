@@ -8,6 +8,13 @@ env:
   SIIBRA_MONITORING_SIIBRA_API: ${{ secrets.SIIBRA_MONITORING_SIIBRA_API }}
 
 jobs:
+  strategy:
+    fail-fast: false
+    matrix:
+      use-cache: ["true", "false"]
+  env:
+    USE_CACHE: ${{ matrix.use-cache }}
+
   e2e-test:
     runs-on: ubuntu-latest
     steps:
