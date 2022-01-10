@@ -49,21 +49,21 @@ jobs:
         node-version: 12
     - name: Run instance, using ${{ matrix.id_type }}
       run: |
-      if [[ "${{ matrix.id_type }}" == "at_id" ]]
-      then
-        export KG_INSTANCE_ID="e715e1f7-2079-45c4-a67f-f76b102acfce"
-      fi
-      if [[ "${{ matrix.id_type }}" == "identifier" ]]
-      then
-        export KG_INSTANCE_ID="0616d1e97b8be75de526bc265d9af540"
-      fi
-      if [ -z "$KG_INSTANCE_ID" ]
-      then
-        echo "KG_INSTANCE_ID needs to be configured!"
-        exit 1
-      fi
-      echo KG_INSTANCE_ID: $KG_INSTANCE_ID
-      npm run mocha -- './siibra/dep/kg-query.spec.js' --timeout 5000
+        if [[ "${{ matrix.id_type }}" == "at_id" ]]
+        then
+          export KG_INSTANCE_ID="e715e1f7-2079-45c4-a67f-f76b102acfce"
+        fi
+        if [[ "${{ matrix.id_type }}" == "identifier" ]]
+        then
+          export KG_INSTANCE_ID="0616d1e97b8be75de526bc265d9af540"
+        fi
+        if [ -z "$KG_INSTANCE_ID" ]
+        then
+          echo "KG_INSTANCE_ID needs to be configured!"
+          exit 1
+        fi
+        echo KG_INSTANCE_ID: $KG_INSTANCE_ID
+        npm run mocha -- './siibra/dep/kg-query.spec.js' --timeout 5000
     - name: Report to monitoring
       if: success()
       run: |
