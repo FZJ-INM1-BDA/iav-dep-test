@@ -6,16 +6,16 @@ on:
 env:
   SIIBRA_API_E2E_BASE_URL: https://siibra-api-stable.apps.hbp.eu
   SIIBRA_MONITORING_SIIBRA_API: ${{ secrets.SIIBRA_MONITORING_SIIBRA_API }}
+  USE_CACHE: ${{ matrix.use-cache }}
+  
 
 jobs:
-  strategy:
-    fail-fast: false
-    matrix:
-      use-cache: ["true", "false"]
-  env:
-    USE_CACHE: ${{ matrix.use-cache }}
 
   e2e-test:
+    strategy:
+      fail-fast: false
+      matrix:
+        use-cache: ["true", "false"]
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository code
