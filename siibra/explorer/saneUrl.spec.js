@@ -22,6 +22,7 @@ const saneUrls = [
   'allen2017',
   'whs4',
   'bigbrainGreyWhite',
+  'icbm_fg1',
 ]
 
 describe(`> siibra-explorer @ ${SIIBRA_EXPLORER_ENDPOINT}`, () => {

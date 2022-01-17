@@ -7,6 +7,9 @@ on:
   schedule:
     - cron: '14 */2 * * *'
 
+env:
+  SIIBRA_MONITORING_SANEURL: ${{ secrets.SIIBRA_MONITORING_SANEURL }}
+
 jobs:
   build:
 
@@ -19,7 +22,7 @@ jobs:
         api-endpoint: [ 'https://interactive-viewer.apps.hbp.eu', 'https://atlases.ebrains.eu/viewer' ]
 
     env:
-      API_ENDPOINT: ${{ matrix.api-endpoint }}
+      SIIBRA_EXPLORER_ENDPOINT: ${{ matrix.api-endpoint }}
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 12.x
@@ -28,3 +31,9 @@ jobs:
         node-version: 12.x
     - run: npm i
     - run: npm run mocha -- './siibra/explorer/saneUrl.spec.js' --timeout 10000
+    - if: success()
+      run: |
+        if [ ! -z "$SIIBRA_MONITORING_SANEURL" ]
+        then
+          curl "$SIIBRA_MONITORING_SANEURL"
+        fi
