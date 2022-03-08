@@ -248,7 +248,7 @@ const urls = [{
 for (const {url, expected } of urls) {
 
    describe(`> dataset-preview @ ${url}`, () => {
-      it('> querying hoc1 works', done => {
+      it('> querying works', done => {
          request(url, (err, resp, body) => {
             if (err) return done(err)
             assert(
