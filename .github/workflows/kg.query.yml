@@ -32,7 +32,9 @@ jobs:
 
   specific-query:
     runs-on: ubuntu-latest
-    needs: general-query
+    # always run specific query separately
+    # sometimes, kg query is fine, and other components fail
+    if: always()
     continue-on-error: true
     strategy:
       fail-fast: false
