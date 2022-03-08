@@ -5,36 +5,15 @@ on:
     - cron: '*/10 * * * *'
 
 env:
-  SIIBRA_MONITORING_KG_QUERY: ${{ secrets.SIIBRA_MONITORING_KG_QUERY }}
   SIIBRA_MONITORING_KG_QUERY_INSTANCE: ${{ secrets.SIIBRA_MONITORING_KG_QUERY_INSTANCE }}
   OAUTH_V2_SA_CLIENT_ID: ${{ secrets.OAUTH_V2_SA_CLIENT_ID }}
   OAUTH_V2_SA_CLIENT_SECRET: ${{ secrets.OAUTH_V2_SA_CLIENT_SECRET }}
   OAUTH_V2_SA_ENDPOINT: ${{ secrets.OAUTH_V2_SA_ENDPOINT }}
   OAUTH_V2_SA_SCOPES: ${{ secrets.OAUTH_V2_SA_SCOPES }}
 jobs:
-  general-query:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 12
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-    - run: npm i
-    - run: npm run mocha -- './siibra/dep/*.spec.js' --timeout 5000
-    - name: Report to monitoring
-      if: success()
-      run: |
-        if [ ! -z "$SIIBRA_MONITORING_KG_QUERY" ]
-        then
-          curl "$SIIBRA_MONITORING_KG_QUERY"
-        fi
-
   specific-query:
     runs-on: ubuntu-latest
-    # always run specific query separately
-    # sometimes, kg query is fine, and other components fail
-    if: always()
+
     continue-on-error: true
     strategy:
       fail-fast: false
