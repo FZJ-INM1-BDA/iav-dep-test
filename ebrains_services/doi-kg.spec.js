@@ -39,8 +39,8 @@ describe(`> doi-kg`, () => {
         })
         try {
           await retryUntil(() => {
-            const regex = /Probabilistic\ cytoarchitectonic\ map\ of\ Area\ hIP7\ \(IPS\)\ \(v7\.1\)/
-            return regex.test(dom.window.document.body.textContent)
+            const title = /Probabilistic\ cytoarchitectonic\ map\ of\ Area\ hIP7\ \(IPS\)/
+            return title.test(dom.window.document.body.textContent)
           }, { timeout: 5000 })
           done()
         } catch (e) {
