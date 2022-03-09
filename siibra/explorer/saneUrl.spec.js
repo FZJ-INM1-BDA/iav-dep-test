@@ -34,18 +34,18 @@ describe(`> siibra-explorer @ ${SIIBRA_EXPLORER_ENDPOINT}`, () => {
         assert(response, 'response is truthy')
       })
     }
-    it('> ratelimiting works', done => {
-      Promise.all(
-        Array(10).fill(null).map(
-          () => getSaneUrl('test', { hello: 'world' })
-        )
-      )
-        .then(() => {
-          done(new Error(`expected some to fail, but all returned`))
-        })
-        .catch(() => {
-          done()
-        })
-    })
+//     it('> ratelimiting works', done => {
+//       Promise.all(
+//         Array(10).fill(null).map(
+//           () => getSaneUrl('test', { hello: 'world' })
+//         )
+//       )
+//         .then(() => {
+//           done(new Error(`expected some to fail, but all returned`))
+//         })
+//         .catch(() => {
+//           done()
+//         })
+//     })
   })
 })
