@@ -50,11 +50,15 @@ jobs:
   report-to-uptime:
     needs: specific-query
     runs-on: ubuntu-latest
-    if: ${{ needs.specific-query.outputs.result-v1 && needs.specific-query.outputs.result-v3 }}
+    if: always()
     steps:
     - name: Report to monitoring
       run: |
-        if [ ! -z "$SIIBRA_MONITORING_KG_QUERY_INSTANCE" ]
+        v1_output=${{ needs.specific-query.outputs.result-v1 }}
+        v3_output=${{ needs.specific-query.outputs.result-v3 }}
+        echo "v1 output: $v1_output"
+        echo "v3 output: $v3_output"
+        if [ ! -z "$SIIBRA_MONITORING_KG_QUERY_INSTANCE" ] && [ ! -z "$v1_output"  ] && [ ! -z "$v3_output" ]
         then
           NEW_URL=$(sed -E "s/(\?.*?)msg=\w+(&)?/\1msg=${{ matrix.id_type }}\2/" <<< "$SIIBRA_MONITORING_KG_QUERY_INSTANCE")
           curl "$NEW_URL"
