@@ -20,16 +20,7 @@ jobs:
       matrix:
         # possible values: at_id, identifier
         kg_version: ['v1', 'v3']
-        include:
-          - kg_version: v1
-            id_type: at_id
-          - kg_version: v1
-            id_type: 'identifier'
-
-          # v3 does not use id_type, but easier to set the output
-          - kg_version: v3
-            id_type: at_id
-      
+        id_type: ['at_id', 'identifier']
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 12
