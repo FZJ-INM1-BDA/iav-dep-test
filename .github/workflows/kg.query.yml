@@ -21,6 +21,9 @@ jobs:
         # possible values: at_id, identifier
         kg_version: ['v1', 'v3']
         id_type: ['at_id', 'identifier']
+    outputs:
+      result-v1: ${{ steps.set-output.result-v1 }}
+      result-v3: ${{ steps.set-output.result-v3 }}
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 12
@@ -41,7 +44,8 @@ jobs:
         npm i
         npm run mocha -- './kg-query/${{ matrix.kg_version }}/index.js' --timeout 5000
 
-    - name: Success, set output
+    - id: set-output
+      name: Success, set output
       if: success()
       run: |
         echo "::set-output name=result-${{ matrix.kg_version }}::${{ matrix.id_type }}"
@@ -52,14 +56,23 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     steps:
-    - name: Report to monitoring
+    - name: Check outputs
       run: |
         v1_output=${{ needs.specific-query.outputs.result-v1 }}
         v3_output=${{ needs.specific-query.outputs.result-v3 }}
+
         echo "v1 output: $v1_output"
         echo "v3 output: $v3_output"
-        if [ ! -z "$SIIBRA_MONITORING_KG_QUERY_INSTANCE" ] && [ ! -z "$v1_output"  ] && [ ! -z "$v3_output" ]
+
+        if [ -z "$v1_output"  ] || [ -z "$v3_output" ]
         then
-          NEW_URL=$(sed -E "s/(\?.*?)msg=\w+(&)?/\1msg=${{ matrix.id_type }}\2/" <<< "$SIIBRA_MONITORING_KG_QUERY_INSTANCE")
+          exit -1
+        fi
+    - name: Report to monitoring
+      if: success()
+      run: |
+        if [ ! -z "$SIIBRA_MONITORING_KG_QUERY_INSTANCE" ]
+        then
+          NEW_URL=$(sed -E "s/(\?.*?)msg=\w+(&)?/\1msg=$v1_output\2/" <<< "$SIIBRA_MONITORING_KG_QUERY_INSTANCE")
           curl "$NEW_URL"
         fi
