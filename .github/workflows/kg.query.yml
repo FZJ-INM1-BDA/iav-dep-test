@@ -22,8 +22,8 @@ jobs:
         kg_version: ['v1', 'v3']
         id_type: ['at_id', 'identifier']
     outputs:
-      result-v1: ${{ steps.set-output.result-v1 }}
-      result-v3: ${{ steps.set-output.result-v3 }}
+      result-v1: ${{ steps.set-output.outputs.result-v1 }}
+      result-v3: ${{ steps.set-output.outputs.result-v3 }}
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 12
