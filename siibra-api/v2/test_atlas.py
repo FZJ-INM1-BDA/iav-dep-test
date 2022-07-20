@@ -17,5 +17,5 @@ def test_get_all_atlases():
     assert len(result_content) == 4
 
 def test_get_single_atlases():
-    response = client.get(f'/v2_0/atlases/{MULTILEVEL_HUMAN_ATLAS_ID}', use_cache=use_cache)
+    response = client.get(f'/v2_0/atlases/{MULTILEVEL_HUMAN_ATLAS_ID}')
     assert response.status_code == 200
