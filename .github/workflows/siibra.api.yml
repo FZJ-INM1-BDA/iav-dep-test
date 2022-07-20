@@ -4,7 +4,6 @@ on:
   schedule:
     - cron: '*/10 * * * *'
 env:
-  SIIBRA_API_E2E_BASE_URL: https://siibra-api-stable.apps.hbp.eu
   SIIBRA_MONITORING_SIIBRA_API: ${{ secrets.SIIBRA_MONITORING_SIIBRA_API }}
   
 
@@ -15,10 +14,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        endpoint: ["https://siibra-api-stable.apps.hbp.eu", "https://siibra-api-stable.apps.jsc.hbp.eu"]
         use-cache: ["true", "false"]
         version: ['v1', 'v2']
+        exclude:
+        - endpoint: "https://siibra-api-stable.apps.jsc.hbp.eu"
+          version: "v1"
     env:
       USE_CACHE: ${{ matrix.use-cache }}
+      SIIBRA_API_E2E_BASE_URL: ${{ matrix.endpoint }}
       
     steps:
     - name: Check out repository code
