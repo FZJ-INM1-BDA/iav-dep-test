@@ -1,4 +1,4 @@
-name: "[siibra/dep] [10min]"
+name: "[siibra-dep] [10min]"
 
 on:
   schedule:
@@ -25,7 +25,7 @@ jobs:
       with:
         node-version: 12
     - run: npm i
-    - run: npm run mocha -- './siibra/dep/*.spec.js' --timeout 5000
+    - run: npm run mocha -- './siibra-dep/**/*.spec.js' --timeout 5000
     - if: success()
       run: |
         if [ ! -z "$SIIBRA_MONITORING_SIIBRA_DEPENDENCIES" ]
