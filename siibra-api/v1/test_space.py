@@ -16,7 +16,7 @@ base_url=os.getenv('SIIBRA_API_E2E_BASE_URL', 'http://localhost:5000')
 client = Session(base_url=base_url)
 
 test_space_param = [
-    (quote(MULTILEVEL_HUMAN_ATLAS_ID), quote_plus(ICBM_152_SPACE_ID), "MNI152 2009c nonl asym", 13),
+    (quote(MULTILEVEL_HUMAN_ATLAS_ID), quote_plus(ICBM_152_SPACE_ID), "MNI152 2009c nonl asym", 15),
     (quote(MULTILEVEL_HUMAN_ATLAS_ID), quote_plus(BIGBRAIN_SPACE_ID), "Big Brain", 4),
     (quote(MULTILEVEL_HUMAN_ATLAS_ID), quote_plus(COLIN_27_SPACE_ID), "MNI Colin 27", 4),
 ]
