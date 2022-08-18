@@ -1,11 +1,11 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: "[ebrain services] [10min] DOI Redirect"
+name: "[ebrain services] [30min] DOI Redirect"
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/30 * * * *'
 
 env:
   SIIBRA_MONITORING_DOI_REDIRECT: ${{ secrets.SIIBRA_MONITORING_DOI_REDIRECT }}
@@ -15,17 +15,14 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x]
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 12.x
     - run: npm i
-    - run: npm run mocha -- './ebrains_services/doi-kg.spec.js' --timeout 10000
+    - run: ./node_modules/.bin/cypress run -s ./cypress/e2e/ebrains-doi.cy.js
     - if: success()
       run: |
         if [ ! -z "$SIIBRA_MONITORING_DOI_REDIRECT" ]
