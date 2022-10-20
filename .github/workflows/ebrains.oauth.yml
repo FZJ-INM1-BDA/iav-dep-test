@@ -15,9 +15,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x]
     env:
       OAUTH_V2_CLIENT_ID: ${{ secrets.OAUTH_V2_CLIENT_ID }}
       OAUTH_V2_REDIRECT_URL: ${{ secrets.OAUTH_V2_REDIRECT_URL }}
@@ -29,10 +26,10 @@ jobs:
       VOLUBA_OAUTH_V2_ENDPOINT: ${{ secrets.VOLUBA_OAUTH_V2_ENDPOINT }}
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 14.x
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 14.x
     - run: npm i
     - run: npm run mocha -- './ebrains_services/oauth.spec.js'
     - if: success()
