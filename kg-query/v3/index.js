@@ -1,5 +1,4 @@
 const {
-    KG_INSTANCE_ID,
     JWT_ACCESS_TOKEN,
     KG_V3_DS_QUERY_ID = "bebbe365-a0d6-41ea-9ff8-2554c15f70b7",
     KG_V3_STAGE="RELEASED",

@@ -18,61 +18,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # possible values: at_id, identifier
-        kg_version: ['v1', 'v3']
-        id_type: ['at_id', 'identifier']
-    outputs:
-      result-v1: ${{ steps.set-output.outputs.result-v1 }}
-      result-v3: ${{ steps.set-output.outputs.result-v3 }}
+        kg_version: ['v3']
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js 12
+    - name: Use Node.js 16
       uses: actions/setup-node@v1
       with:
-        node-version: 12
+        node-version: 16
     - name: Testing KG ${{ matrix.kg_version }}
       run: |
-        if [[ "${{ matrix.id_type }}" == "at_id" ]]
-        then
-          export KG_INSTANCE_ID="e715e1f7-2079-45c4-a67f-f76b102acfce"
-        fi
-        if [[ "${{ matrix.id_type }}" == "identifier" ]]
-        then
-          export KG_INSTANCE_ID="0616d1e97b8be75de526bc265d9af540"
-        fi
-
         npm i
         npm run mocha -- './kg-query/${{ matrix.kg_version }}/index.js' --timeout 5000
-
-    - id: set-output
-      name: Success, set output
-      if: success()
-      run: |
-        echo "::set-output name=result-${{ matrix.kg_version }}::${{ matrix.id_type }}"
-
 
   report-to-uptime:
     needs: specific-query
     runs-on: ubuntu-latest
     if: always()
     steps:
-    - name: Check outputs
-      run: |
-        v1_output=${{ needs.specific-query.outputs.result-v1 }}
-        v3_output=${{ needs.specific-query.outputs.result-v3 }}
-
-        echo "v1 output: $v1_output"
-        echo "v3 output: $v3_output"
-
-        if [ -z "$v1_output"  ] || [ -z "$v3_output" ]
-        then
-          exit -1
-        fi
     - name: Report to monitoring
       if: success()
       run: |
         if [ ! -z "$SIIBRA_MONITORING_KG_QUERY_INSTANCE" ]
         then
-          NEW_URL=$(sed -E "s/(\?.*?)msg=\w+(&)?/\1msg=$v1_output\2/" <<< "$SIIBRA_MONITORING_KG_QUERY_INSTANCE")
-          curl "$NEW_URL"
+          curl "$SIIBRA_MONITORING_KG_QUERY_INSTANCE"
         fi

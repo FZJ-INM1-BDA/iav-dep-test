@@ -2,7 +2,7 @@ const {
   OAUTH_V2_SA_CLIENT_ID,
   OAUTH_V2_SA_CLIENT_SECRET,
   OAUTH_V2_SA_ENDPOINT='https://iam.ebrains.eu/auth/realms/hbp/protocol/openid-connect',
-  OAUTH_V2_SA_SCOPES='',
+  OAUTH_V2_SA_SCOPES='openid',
 } = process.env
 
 const request = require('request')
