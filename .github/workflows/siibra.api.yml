@@ -29,6 +29,8 @@ jobs:
       result-cscs-v1: ${{ steps.set-output.outputs.result-cscs-v1 }}
       result-cscs-v2: ${{ steps.set-output.outputs.result-cscs-v2 }}
       result-jsc-v2: ${{ steps.set-output.outputs.result-jsc-v2 }}
+      result-cscs-v3: ${{ steps.set-output.outputs.result-cscs-v3 }}
+      result-jsc-v3: ${{ steps.set-output.outputs.result-jsc-v3 }}
       
     steps:
     - name: Check out repository code
