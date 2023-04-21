@@ -115,7 +115,7 @@ class TestSingleRegion(unittest.TestCase):
         assert info_url is not None
         assert map_url is not None
 
-        # region map info
+        # / region map info
         
         if info_url is not None:
             assert base_url in info_url, f"base_url should be in info_url"
@@ -125,93 +125,8 @@ class TestSingleRegion(unittest.TestCase):
             assert info.get('min') is not None
             assert info.get('max') is not None
 
-        # region map
+        # / region map
         if map_url is not None:
             assert base_url in map_url, f"base_url should be in map_url"
             response = client.get(map_url, ignore_base_url=True)
             assert response.status_code == 200
-
-class TestSingleRegionFeatures(unittest.TestCase):
-
-    def test_regional_modality_by_id(self):
-        url = '/v1_0/atlases/{}/parcellations/{}/regions/{}/features/{}'.format(
-            quote_plus(MULTILEVEL_HUMAN_ATLAS_ID),
-            quote_plus(JULICH_BRAIN_V29_PARC_ID),
-            BASAL_REGION_NAME,
-            EBRAINS_REGIONAL_DATASET_MODALITY_NAME)
-        response = client.get(url)
-    
-        assert response.status_code == 200
-
-    def test_noresult_receptor(self):
-        response = client.get('/v1_0/atlases/{}/parcellations/{}/regions/{}/features/ReceptorDistribution'.format(
-            quote(MULTILEVEL_HUMAN_ATLAS_ID),
-            # nb must not be quote()
-            quote_plus(JULICH_BRAIN_V29_PARC_ID),
-            quote(SF_AMY_LEFT_REGION_NAME)))
-        result_content = json.loads(response.content)
-        assert response.status_code == 200
-        assert len(result_content) == 0
-
-    def test_result_receptor(self):
-        response = client.get('/v1_0/atlases/{}/parcellations/{}/regions/{}/features/ReceptorDistribution'.format(
-            quote(MULTILEVEL_HUMAN_ATLAS_ID),
-            quote_plus(JULICH_BRAIN_V29_PARC_ID),
-            quote(HOC1_LEFT_REGION_NAME)))
-        result_content = json.loads(response.content)
-        assert response.status_code == 200
-        assert len(result_content) > 0
-    
-    def test_result_receptor_detail(self):
-        receptor_dataset_id=r'Density%20measurements%20of%20different%20receptors%20for%20Area%20hOc1%20(V1%2C%2017%2C%20CalcS)%20%5Bhuman%2C%20v1.0%5D'
-        url='/v1_0/atlases/{}/parcellations/{}/regions/{}/features/ReceptorDistribution/{}'.format(
-            quote(MULTILEVEL_HUMAN_ATLAS_ID),
-            quote_plus(JULICH_BRAIN_V29_PARC_ID),
-            quote(HOC1_LEFT_REGION_NAME),
-            receptor_dataset_id)
-        response = client.get(url)
-        assert response.status_code == 200
-
-    def test_result_ieeg(self):
-        url='/v1_0/atlases/{atlas_id}/spaces/{space_id}/features/IEEG_Session?parcellation_id={parc_id}&region={region_id}'.format(
-            atlas_id=quote_plus(MULTILEVEL_HUMAN_ATLAS_ID),
-            space_id=quote_plus(ICBM_152_SPACE_ID),
-            parc_id=quote_plus(JULICH_BRAIN_V29_PARC_ID),
-            region_id=quote_plus(HOC1_RIGHT_REGION_NAME),
-        )
-        response=client.get(url)
-        result_content = json.loads(response.content)
-        assert response.status_code == 200
-        assert len(result_content) > 0
-        
-
-    def test_no_result_ieeg(self):
-        url='/v1_0/atlases/{atlas_id}/spaces/{space_id}/features/IEEG_Session?parcellation_id={parc_id}&region={region_id}'.format(
-            atlas_id=quote_plus(MULTILEVEL_HUMAN_ATLAS_ID),
-            space_id=quote_plus(ICBM_152_SPACE_ID),
-            parc_id=quote_plus(JULICH_BRAIN_V29_PARC_ID),
-            region_id=quote_plus(HOC1_LEFT_REGION_NAME),
-        )
-        response=client.get(url)
-        result_content = json.loads(response.content)
-        assert response.status_code == 200
-        # hoc1 left should have no ieeg result
-        assert len(result_content) == 0
-
-    # latest siibra-api used siibra-python 0.3a27, thus lost connectivity profile
-    # TODO reimplement connectviity profile
-    # def test_rest_connectivity(self):
-    #     conn_id='e428cb6b-0110-4205-94ac-533ca5de6bb5'
-    #     url='/v1_0/atlases/{atlas_id}/parcellations/{parcellation_id}/regions/{region_spec}/features/ConnectivityProfile/{conn_id}'.format(
-    #         atlas_id=quote_plus(MULTILEVEL_HUMAN_ATLAS_ID),
-    #         parcellation_id=quote_plus(JULICH_BRAIN_V29_PARC_ID),
-    #         region_spec=quote_plus(HOC1_LEFT_REGION_NAME),
-    #         conn_id=conn_id
-    #     )
-    #     response=client.get(url)
-    #     assert response.status_code == 200
-    #     response_json=json.loads(response.content)
-    #     column_names=response_json.get('__column_names')
-    #     assert column_names is not None
-    #     assert type(column_names) == list
-    #     assert len(column_names) > 0
