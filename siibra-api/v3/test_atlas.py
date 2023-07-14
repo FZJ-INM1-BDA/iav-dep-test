@@ -14,7 +14,7 @@ def test_get_all_atlases():
     response = client.get('/v3_0/atlases')
     assert response.status_code == 200
     result_content = json.loads(response.content)
-    assert len(result_content) == 4
+    assert len(result_content) == 5
 
 def test_get_single_atlases():
     response = client.get(f'/v3_0/atlases/{MULTILEVEL_HUMAN_ATLAS_ID}')
