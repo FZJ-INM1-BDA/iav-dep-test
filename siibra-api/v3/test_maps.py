@@ -85,4 +85,4 @@ def test_map_shape(space_shape,parc_id,map_endpoint,region_name, tmp_named_file)
     tmp_named_file.close()
     nii = nib.load(tmp_named_file.name)
     assert nii
-    assert nii.get_fdata().shape == expected_shape
+    assert nii.get_fdata().shape == expected_shape, f"{nii.get_fdata().shape}, {expected_shape}, {region_name}, {map_endpoint}, {space_id}"
