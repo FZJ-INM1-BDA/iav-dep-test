@@ -25,7 +25,7 @@ jobs:
       VOLUBA_OAUTH_V2_SCOPES: ${{ secrets.VOLUBA_OAUTH_V2_SCOPES }}
       VOLUBA_OAUTH_V2_ENDPOINT: ${{ secrets.VOLUBA_OAUTH_V2_ENDPOINT }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Use Node.js 14.x
       uses: actions/setup-node@v1
       with:

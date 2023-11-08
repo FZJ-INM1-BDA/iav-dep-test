@@ -19,7 +19,7 @@ jobs:
       OAUTH_V2_SA_SCOPES: ${{ secrets.OAUTH_V2_SA_SCOPES }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Use Node.js 12
       uses: actions/setup-node@v1
       with:

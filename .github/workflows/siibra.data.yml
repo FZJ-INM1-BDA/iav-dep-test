@@ -1,0 +1,27 @@
+name: "[siibra-dep] [10min]"
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+
+env:
+  SIIBRA_MONITORING_SIIBRA_DATA_1UM: ${{ secrets.SIIBRA_MONITORING_SIIBRA_DATA_1UM }}
+
+jobs:
+  build:
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4 
+      with:
+        python-version: '3.10'
+    - run: pip install requests pytest
+    - run: pytest siibra/data
+    - if: success()
+      run: |
+        if [ ! -z "$SIIBRA_MONITORING_SIIBRA_DATA_1UM" ]
+        then
+          curl "$SIIBRA_MONITORING_SIIBRA_DATA_1UM"
+        fi
