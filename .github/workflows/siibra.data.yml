@@ -5,6 +5,7 @@ on:
     - cron: '*/10 * * * *'
 
 env:
+  SIIBRA_BBVM: ${{ secrets.SIIBRA_BBVM }}
   SIIBRA_MONITORING_SIIBRA_DATA_1UM: ${{ secrets.SIIBRA_MONITORING_SIIBRA_DATA_1UM }}
 
 jobs:
