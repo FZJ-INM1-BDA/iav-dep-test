@@ -1,4 +1,4 @@
-name: "[siibra-dep] [10min]"
+name: "[siibra-data] [10min]"
 
 on:
   schedule:
