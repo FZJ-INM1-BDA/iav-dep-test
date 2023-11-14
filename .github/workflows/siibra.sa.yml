@@ -1,0 +1,36 @@
+name: "[siibra-sa] [10min]"
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+
+env:
+  # voluba sa
+  EBRAINS_SA_CLIENT_ID: ${{ secrets.EBRAINS_SA_CLIENT_ID }}
+  EBRAINS_SA_CLIENT_SECRET: ${{ secrets.EBRAINS_SA_CLIENT_SECRET }}
+
+  # sxplr sa 
+  SXPLR_EBRAINS_IAM_SA_CLIENT_ID: ${{ secrets.SXPLR_EBRAINS_IAM_SA_CLIENT_ID }}
+  SXPLR_EBRAINS_IAM_SA_CLIENT_SECRET: ${{ secrets.SXPLR_EBRAINS_IAM_SA_CLIENT_SECRET }}
+
+  # discovery endpoint
+  DISCOVERY_ENDPOINT: ${{ secrets.DISCOVERY_ENDPOINT }}
+
+  # reporting endpoint
+  SIIBRA_MONITORING_SIIBRA_SA: ${{ secrets.SIIBRA_MONITORING_SIIBRA_SA }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4 
+      with:
+        python-version: '3.10'
+    - run: pip install -r requirements.txt
+    - run: pytest siibra/sa
+    - if: success()
+      run: |
+        if [ ! -z "$SIIBRA_MONITORING_SIIBRA_SA" ]
+        then
+          curl "$SIIBRA_MONITORING_SIIBRA_SA"
+        fi
