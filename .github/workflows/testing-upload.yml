@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - run: "echo 'hello world' >> foo_test.txt"
-    - uses: ".github/actions/upload_dataproxy"
+    - uses: "./.github/actions/upload_dataproxy"
       with:
         upload-file: foo_test.txt
         bucket-name: reference-atlas-data
