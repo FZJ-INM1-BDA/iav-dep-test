@@ -25,10 +25,10 @@ runs:
     - |
       ebrains_util iam auth login \
         --scope team \
-        --client-id ${{ input.client-id }} \
-        --client-secret ${{ input.client-secret }}
-      ebrains_util bucket -n ${{ input.bucket-name }} \
+        --client-id ${{ inputs.client-id }} \
+        --client-secret ${{ inputs.client-secret }}
+      ebrains_util bucket -n ${{ inputs.bucket-name }} \
         upload --progress \
-        ${{ input.upload-file }} \
-        ${{ input.dest-path }}
+        ${{ inputs.upload-file }} \
+        ${{ inputs.dest-path }}
   image: Dockerfile

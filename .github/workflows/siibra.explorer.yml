@@ -26,7 +26,7 @@ jobs:
         node-version: 12
     - run: |
         npm i
-        npm run mocha -- './siibra/explorer/index.spec.js' --timeout 5000
+        npm run mocha -- './siibra/explorer/*.spec.js' --timeout 10000
 
     - if: success()
       run: |
