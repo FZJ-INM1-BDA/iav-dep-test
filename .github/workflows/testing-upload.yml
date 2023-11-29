@@ -1,0 +1,24 @@
+name: "[test-upload]"
+
+on: [push]
+
+env:
+
+  # sxplr sa 
+  SXPLR_EBRAINS_IAM_SA_CLIENT_ID: ${{ secrets.SXPLR_EBRAINS_IAM_SA_CLIENT_ID }}
+  SXPLR_EBRAINS_IAM_SA_CLIENT_SECRET: ${{ secrets.SXPLR_EBRAINS_IAM_SA_CLIENT_SECRET }}
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - run: "echo 'hello world' >> foo_test.txt"
+    - uses: ".github/actions/upload_dataproxy"
+      with:
+        upload-file: foo_test.txt
+        bucket-name: reference-atlas-data
+        dest-path: temp/foo_test.txt
+        client-id: ${{ env.SXPLR_EBRAINS_IAM_SA_CLIENT_ID }}
+        client-secret: ${{ env.SXPLR_EBRAINS_IAM_SA_CLIENT_SECRET }}

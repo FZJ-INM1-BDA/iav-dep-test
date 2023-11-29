@@ -1,0 +1,34 @@
+name: dataproxy-upload
+description: Upload a file to ebrains dataproxy
+author: "Xiao Gui <xgui3783@gmail.com>"
+inputs:
+  upload-file:
+    required: true
+    description: File to upload
+  bucket-name:
+    required: true
+    description: Bucket name
+  dest-path:
+    required: true
+    description: Destination path
+  client-id:
+    required: true
+    description: Client ID used for client credential flow
+  client-secret:
+    required: true
+    description: Client Secret used for client credential flow
+runs:
+  using: docker
+  entrypoint: /bin/bash
+  args:
+    - "-c"
+    - |
+      ebrains_util iam auth login \
+        --scope team \
+        --client-id ${{ input.client-id }} \
+        --client-secret ${{ input.client-secret }}
+      ebrains_util bucket -n ${{ input.bucket-name }} \
+        upload --progress \
+        ${{ input.upload-file }} \
+        ${{ input.dest-path }}
+  image: Dockerfile

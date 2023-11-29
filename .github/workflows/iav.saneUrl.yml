@@ -19,7 +19,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        api-endpoint: [ 'https://interactive-viewer.apps.hbp.eu', 'https://atlases.ebrains.eu/viewer' ]
+        api-endpoint: [ 'https://atlases.ebrains.eu/viewer' ]
 
     env:
       SIIBRA_EXPLORER_ENDPOINT: ${{ matrix.api-endpoint }}
