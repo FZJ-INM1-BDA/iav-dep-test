@@ -3,10 +3,9 @@ name: "[test-upload]"
 on: [push]
 
 env:
-
-  # sxplr sa 
-  SXPLR_EBRAINS_IAM_SA_CLIENT_ID: ${{ secrets.SXPLR_EBRAINS_IAM_SA_CLIENT_ID }}
-  SXPLR_EBRAINS_IAM_SA_CLIENT_SECRET: ${{ secrets.SXPLR_EBRAINS_IAM_SA_CLIENT_SECRET }}
+  # voluba sa
+  EBRAINS_SA_CLIENT_ID: ${{ secrets.EBRAINS_SA_CLIENT_ID }}
+  EBRAINS_SA_CLIENT_SECRET: ${{ secrets.EBRAINS_SA_CLIENT_SECRET }}
 
 
 jobs:
@@ -20,5 +19,5 @@ jobs:
         upload-file: foo_test.txt
         bucket-name: reference-atlas-data
         dest-path: temp/foo_test.txt
-        client-id: ${{ env.SXPLR_EBRAINS_IAM_SA_CLIENT_ID }}
-        client-secret: ${{ env.SXPLR_EBRAINS_IAM_SA_CLIENT_SECRET }}
+        client-id: ${{ env.EBRAINS_SA_CLIENT_ID }}
+        client-secret: ${{ env.EBRAINS_SA_CLIENT_SECRET }}
