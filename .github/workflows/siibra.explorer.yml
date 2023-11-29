@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        end-point: [ 'https://siibra-api-stable.apps.hbp.eu/', 'https://interactive-viewer.apps.hbp.eu/', 'https://atlases.ebrains.eu/viewer']
+        end-point: [ 'https://atlases.ebrains.eu/viewer' ]
     env:
       SIIBRA_EXPLORER_ENDPOINT: ${{ matrix.end-point }}
     steps:
