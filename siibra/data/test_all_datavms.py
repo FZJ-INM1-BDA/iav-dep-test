@@ -7,8 +7,8 @@ from urllib.parse import ParseResult
 import time
 
 from .util.ng_volume import get_neuroglancer_src, foo_test_vol_ngs
-from .util.common import url_atlas_vm, CheckResult, pluck_by_host, get_all_mirrors
-from .util.static import get_static_files, test_static_file
+from .util.common import CheckResult, pluck_by_host, get_all_mirrors
+from .util.static import get_static_files, foo_test_static_file
 from .util.ng_mesh import get_neuroglancer_surf_src, foo_test_surf_ngs
 
 GITLAB_ROOT = os.getenv("GITLAB_ROOT", "https://jugit.fz-juelich.de")
@@ -16,7 +16,7 @@ GITLAB_PROJECT_ID = os.getenv("GITLAB_PROJECT_ID", "3484")
 GITLAB_REF_TAG = os.getenv("GITLAB_REF_TAG", "master")
 DETAIL_FLAG = os.getenv("DETAIL_FLAG")
 RUN_ID = int(os.getenv("RUN_ID", "0"))
-PLUCK_NUM = int(os.getenv("PLUCK_NUM", "2"))
+PLUCK_NUM = int(os.getenv("PLUCK_NUM", "1"))
 NG_PROFILE_FILE_TO_WRITE = os.getenv("NG_PROFILE_FILE_TO_WRITE")
 
 
@@ -107,42 +107,48 @@ def test_all_datasources():
                 if not filename.endswith(".json"):
                     continue
 
-                static_file_urls.extend([
-                    v
-                    for parsed_result in pluck_by_host(
-                        get_static_files(Path(dirpath) / filename),
-                        RUN_ID * PLUCK_NUM,
-                        PLUCK_NUM,
-                    )
-                    for v in get_all_mirrors(parsed_result)]
+                static_file_urls.extend(
+                    [v
+                    for pr in get_static_files(Path(dirpath) / filename)
+                    for v in get_all_mirrors(pr)]
                 )
 
-                volumetric_ng.extend([
-                    v
-                    for parsed_result in pluck_by_host(
-                        get_neuroglancer_src(Path(dirpath) / filename),
-                        RUN_ID * PLUCK_NUM,
-                        PLUCK_NUM
-                    )
-                    for v in get_all_mirrors(parsed_result)]
+                volumetric_ng.extend(
+                    [v
+                    for pr in get_neuroglancer_src(Path(dirpath) / filename)
+                    for v in get_all_mirrors(pr)]
                 )
 
-                surface_mesh_ng.extend([
-                    v
-                    for parsed_result in pluck_by_host(
-                        get_neuroglancer_surf_src(Path(dirpath) / filename),
-                        RUN_ID * PLUCK_NUM,
-                        PLUCK_NUM
-                    )
-                    for v in get_all_mirrors(parsed_result)]
+                surface_mesh_ng.extend(
+                    [v
+                    for pr in get_neuroglancer_surf_src(Path(dirpath) / filename)
+                    for v in get_all_mirrors(pr)]
                 )
     
+    static_file_urls = pluck_by_host(
+        static_file_urls,
+        RUN_ID * PLUCK_NUM,
+        PLUCK_NUM
+    )
+    volumetric_ng = pluck_by_host(
+        volumetric_ng,
+        RUN_ID * PLUCK_NUM,
+        PLUCK_NUM
+    )
+    surface_mesh_ng = pluck_by_host(
+        surface_mesh_ng,
+        RUN_ID * PLUCK_NUM,
+        PLUCK_NUM
+    )
+
     check_results: list[tuple[ParseResult, CheckResult]] = []
+
+    print(len(static_file_urls), len(volumetric_ng), len(surface_mesh_ng))
 
     check_results.extend(
         zip(
             static_file_urls,
-            test_static_file([ url.geturl() for url in static_file_urls ])
+            foo_test_static_file([ url.geturl() for url in static_file_urls ])
         )
     )
     check_results.extend(
@@ -158,7 +164,7 @@ def test_all_datasources():
         )
     )
 
-    error_results = [r for r in check_results if r.error is not None]
+    error_results = [r for pr, r in check_results if r.error is not None]
 
     errmsg = f"{len(error_results)} / {len(check_results)} failed."
     if DETAIL_FLAG:
@@ -166,3 +172,6 @@ def test_all_datasources():
                             for r in error_results])
     write_labels(check_results)
     assert len(error_results) == 0, errmsg
+
+if __name__ == "__main__":
+    test_all_datasources()

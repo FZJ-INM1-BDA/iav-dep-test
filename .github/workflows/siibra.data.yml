@@ -8,7 +8,10 @@ env:
   SIIBRA_MONITORING_SIIBRA_DATA_1UM: ${{ secrets.SIIBRA_MONITORING_SIIBRA_DATA_1UM }}
   REMOTE_METRIC_PATH: 'metrics/datavm.txt'
   NG_PROFILE_FILE_TO_WRITE: 'datavm.txt'
-  DETAIL_FLAG: "1"
+  DETAIL_FLAG: "1"  
+  EBRAINS_SA_CLIENT_ID: ${{ secrets.EBRAINS_SA_CLIENT_ID }}
+  EBRAINS_SA_CLIENT_SECRET: ${{ secrets.EBRAINS_SA_CLIENT_SECRET }}
+
 jobs:
   build:
     
@@ -26,10 +29,18 @@ jobs:
           https://data-proxy.ebrains.eu/api/v1/buckets/reference-atlas-data/${{ env.REMOTE_METRIC_PATH}}
         
     - run: pip install requests pytest neuroglancer-scripts tqdm
-    - run: pytest siibra/data
+    - run: pytest -vvv siibra/data
     - if: success()
       run: |
         if [ ! -z "$SIIBRA_MONITORING_SIIBRA_DATA_1UM" ]
         then
           curl "$SIIBRA_MONITORING_SIIBRA_DATA_1UM"
         fi
+    - if: always()
+      uses: "./.github/actions/upload_dataproxy"
+      with:
+        upload-file: ${{ env.NG_PROFILE_FILE_TO_WRITE }}
+        bucket-name: reference-atlas-data
+        dest-path: ${{ env.REMOTE_METRIC_PATH }}
+        client-id: ${{ env.EBRAINS_SA_CLIENT_ID }}
+        client-secret: ${{ env.EBRAINS_SA_CLIENT_SECRET }}
