@@ -5,9 +5,10 @@ on:
     - cron: '*/10 * * * *'
 
 env:
-  SIIBRA_BBVM: ${{ secrets.SIIBRA_BBVM }}
   SIIBRA_MONITORING_SIIBRA_DATA_1UM: ${{ secrets.SIIBRA_MONITORING_SIIBRA_DATA_1UM }}
-
+  REMOTE_METRIC_PATH: 'metrics/datavm.txt'
+  NG_PROFILE_FILE_TO_WRITE: 'datavm.txt'
+  DETAIL_FLAG: "1"
 jobs:
   build:
     
@@ -18,7 +19,13 @@ jobs:
     - uses: actions/setup-python@v4 
       with:
         python-version: '3.10'
-    - run: pip install requests pytest
+    - name: 'Download existing metric, if available'
+      run: |
+        curl -L \
+          --output ${{ env.NG_PROFILE_FILE_TO_WRITE}} \
+          https://data-proxy.ebrains.eu/api/v1/buckets/reference-atlas-data/${{ env.REMOTE_METRIC_PATH}}
+        
+    - run: pip install requests pytest neuroglancer-scripts tqdm
     - run: pytest siibra/data
     - if: success()
       run: |
