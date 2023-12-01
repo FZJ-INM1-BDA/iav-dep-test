@@ -18,6 +18,7 @@ def check_exist(url: str):
     resp = requests.get(url, headers={"Range": "bytes=0-1024"})
     resp.raise_for_status()
     assert 200 <= resp.status_code < 300, f"status_code {resp.status_code} is abnormal"
+    return [True]
 
 def get_static_files(file_to_json) -> list[ParseResult]:
     with open(file_to_json) as fp:

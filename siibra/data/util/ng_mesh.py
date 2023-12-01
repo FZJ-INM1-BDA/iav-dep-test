@@ -54,7 +54,7 @@ def foo_test_surf_ng(url: str) -> CheckResult:
         })
         resp.raise_for_status()
         assert 200 <= resp.status_code < 300, f"status_code {resp.status_code} is abnormal"
-    
+    return [True for f in fragments]
 
 def foo_test_surf_ngs(urls: list[str]) -> list[CheckResult]:
     with ThreadPoolExecutor() as ex:

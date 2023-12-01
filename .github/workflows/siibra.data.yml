@@ -11,7 +11,6 @@ env:
   DETAIL_FLAG: "1"  
   EBRAINS_SA_CLIENT_ID: ${{ secrets.EBRAINS_SA_CLIENT_ID }}
   EBRAINS_SA_CLIENT_SECRET: ${{ secrets.EBRAINS_SA_CLIENT_SECRET }}
-
 jobs:
   build:
     
@@ -29,7 +28,9 @@ jobs:
           https://data-proxy.ebrains.eu/api/v1/buckets/reference-atlas-data/${{ env.REMOTE_METRIC_PATH}}
         
     - run: pip install requests pytest neuroglancer-scripts tqdm
-    - run: pytest -vvv siibra/data
+    - run: |
+        export RUN_ID=${{ github.run_number }}
+        pytest -vvv siibra/data
     - if: success()
       run: |
         if [ ! -z "$SIIBRA_MONITORING_SIIBRA_DATA_1UM" ]

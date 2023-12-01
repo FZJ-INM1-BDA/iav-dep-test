@@ -72,11 +72,15 @@ def write_labels(t_results: list[tuple[ParseResult, CheckResult]]):
 
     for url_obj, result in t_results:
         if result.error is not None:
-            result.perf_ns
             write_latency_label(url_obj, 0)
             write_error_label(url_obj, 1.0)
-            return
-        write_latency_label(url_obj, result.perf_ns / 1e6 / len(result.fn_return))
+            continue
+        
+        try:
+            perf = result.perf_ns / 1e6 / len(result.fn_return)
+        except:
+            perf = result.perf_ns / 1e6
+        write_latency_label(url_obj, perf)
         write_error_label(url_obj, 0.0)
     
     file_to_write.write_text(current)
