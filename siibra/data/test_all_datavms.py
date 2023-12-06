@@ -20,10 +20,10 @@ PLUCK_NUM = int(os.getenv("PLUCK_NUM", "1"))
 NG_PROFILE_FILE_TO_WRITE = os.getenv("NG_PROFILE_FILE_TO_WRITE")
 
 
-profile_txt = """# HELP ng_src_profile_response_time average response in ms
-# TYPE ng_src_profile_response_time gauge
-# HELP ng_src_profile_error if the profile returns error. 0 for normal operation, 1 for error.
-# TYPE ng_src_profile_error gauge"""
+profile_txt = """# HELP data_vm_profile_response_time average response in ms
+# TYPE data_vm_profile_response_time gauge
+# HELP data_vm_profile_error if the profile returns error. 0 for normal operation, 1 for error.
+# TYPE data_vm_profile_error gauge"""
 
 
 def write_labels(t_results: list[tuple[ParseResult, CheckResult]]):
@@ -32,6 +32,15 @@ def write_labels(t_results: list[tuple[ParseResult, CheckResult]]):
         return
     file_to_write = Path(NG_PROFILE_FILE_TO_WRITE)
     current = file_to_write.read_text() if file_to_write.is_file() else profile_txt
+
+    # In rare occassions, curl may not be able to fetch the current file
+    # resulting in garbage written to the file_to_write
+    # if that's the case, remove the ill formed file without writing anything
+    # and return
+    # this is so that illformed metric file never gets uploaded
+    if profile_txt not in current:
+        file_to_write.unlink()
+        return
     
     def get_time_stamp():
         return round(time.time() * 1e3)
