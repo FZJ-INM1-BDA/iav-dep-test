@@ -15,19 +15,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        end-point: [ 'https://atlases.ebrains.eu/viewer' ]
+        end-point: [ 'https://atlases.ebrains.eu/viewer/', 'https://siibra-explorer.apps.tc.humanbrainproject.eu/viewer/' ]
     env:
       SIIBRA_EXPLORER_ENDPOINT: ${{ matrix.end-point }}
     steps:
     - uses: actions/checkout@v4
-    - name: Use Node.js 12
-      uses: actions/setup-node@v1
+    - uses: actions/setup-python@v4 
       with:
-        node-version: 12
-    - run: |
-        npm i
-        npm run mocha -- './siibra/explorer/*.spec.js' --timeout 10000
-
+        python-version: '3.10'
+    - run: pip install -r requirements.txt
+    - run: pytest siibra/explorer
     - if: success()
       run: |
         if [ ! -z "$SIIBRA_MONITORING_EXPLORER" ]
