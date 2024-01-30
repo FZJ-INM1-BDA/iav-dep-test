@@ -7,6 +7,7 @@ env:
   SIIBRA_MONITORING_SIIBRA_API: ${{ secrets.SIIBRA_MONITORING_SIIBRA_API }}
   CSCS_ENDPOINT: https://siibra-api-stable.apps.hbp.eu
   JSC_ENDPOINT: https://siibra-api-stable.apps.jsc.hbp.eu
+  EBRAINS_ENDPOINT: https://siibra-api-prod.apps.tc.humanbrainproject.eu
 
 jobs:
 
@@ -22,13 +23,17 @@ jobs:
         exclude:
         - endpoint: jsc
           version: "v1"
+        - endpoint: jsc
+          version: "v2"
+        - include: ebrains
+          version: "v3"
     env:
       USE_CACHE: ${{ matrix.use-cache }}
 
     outputs:
       result-cscs-v1: ${{ steps.set-output.outputs.result-cscs-v1 }}
       result-cscs-v2: ${{ steps.set-output.outputs.result-cscs-v2 }}
-      result-jsc-v2: ${{ steps.set-output.outputs.result-jsc-v2 }}
+      result-ebrains-v3: ${{ steps.set-output.outputs.result-ebrains-v3 }}
       result-cscs-v3: ${{ steps.set-output.outputs.result-cscs-v3 }}
       result-jsc-v3: ${{ steps.set-output.outputs.result-jsc-v3 }}
       
@@ -53,6 +58,10 @@ jobs:
         then
           echo "SIIBRA_API_E2E_BASE_URL=${{ env.JSC_ENDPOINT }}" >> $GITHUB_ENV
         fi
+        if [[ ${{ matrix.endpoint }} == "ebrains" ]]
+        then
+          echo "SIIBRA_API_E2E_BASE_URL=${{ env.EBRAINS_ENDPOINT }}" >> $GITHUB_ENV
+        fi
     - name: Run test
       run: |
         pytest ./siibra-api/${{ matrix.version }}
@@ -74,17 +83,17 @@ jobs:
       run: |
         cscs_v1=${{ needs.api-test.outputs.result-cscs-v1 }}
         cscs_v2=${{ needs.api-test.outputs.result-cscs-v2 }}
-        jsc_v2=${{ needs.api-test.outputs.result-jsc-v2 }}
+        ebrains_v3=${{ needs.api-test.outputs.result-ebrains-v3 }}
         cscs_v3=${{ needs.api-test.outputs.result-cscs-v3 }}
         jsc_v3=${{ needs.api-test.outputs.result-jsc-v3 }}
 
         echo "cscs_v1: $cscs_v1"
         echo "cscs_v2: $cscs_v2"
-        echo "jsc_v2: $jsc_v2"
+        echo "ebrains_v3: $ebrains_v3"
         echo "cscs_v3: $cscs_v3"
         echo "jsc_v3: $jsc_v3"
 
-        if [ -z "$cscs_v1" ] || [ -z "$cscs_v2" ] || [ -z "$jsc_v2" ] || [ -z "$cscs_v3" ] || [ -z "$jsc_v3" ]
+        if [ -z "$cscs_v1" ] || [ -z "$cscs_v2" ] || [ -z "$ebrains_v3" ] || [ -z "$cscs_v3" ] || [ -z "$jsc_v3" ]
         then
           exit -1
         fi
