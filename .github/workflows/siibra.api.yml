@@ -16,16 +16,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        endpoint: [cscs, jsc]
+        endpoint: [cscs]
         use-cache: ["true", "false"]
         version: ['v1', 'v2', 'v3']
 
-        exclude:
+        include:
         - endpoint: jsc
-          version: "v1"
-        - endpoint: jsc
-          version: "v2"
-        - include: ebrains
+          version: "v3"
+        - endpoint: ebrains
           version: "v3"
     env:
       USE_CACHE: ${{ matrix.use-cache }}
