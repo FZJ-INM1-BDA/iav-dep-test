@@ -23,8 +23,10 @@ jobs:
         include:
         - endpoint: jsc
           version: "v3"
+          use-cache: "true"
         - endpoint: ebrains
           version: "v3"
+          use-cache: "true"
     env:
       USE_CACHE: ${{ matrix.use-cache }}
 
@@ -46,7 +48,7 @@ jobs:
       run: |
         python -m pip install -U pip
         python -m pip install pytest requests nibabel
-    - name: "Set endoint"
+    - name: "Set endpoint"
       run: |
         if [[ ${{ matrix.endpoint }} == "cscs" ]]
         then
