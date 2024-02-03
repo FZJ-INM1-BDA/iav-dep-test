@@ -6,7 +6,6 @@ on:
 env:
   SIIBRA_MONITORING_SIIBRA_API: ${{ secrets.SIIBRA_MONITORING_SIIBRA_API }}
   CSCS_ENDPOINT: https://siibra-api-stable.apps.hbp.eu
-  JSC_ENDPOINT: https://siibra-api-stable.apps.jsc.hbp.eu
   EBRAINS_ENDPOINT: https://siibra-api-prod.apps.tc.humanbrainproject.eu
 
 jobs:
@@ -21,9 +20,6 @@ jobs:
         version: ['v1', 'v2', 'v3']
 
         include:
-        - endpoint: jsc
-          version: "v3"
-          use-cache: "true"
         - endpoint: ebrains
           version: "v3"
           use-cache: "true"
@@ -35,7 +31,6 @@ jobs:
       result-cscs-v2: ${{ steps.set-output.outputs.result-cscs-v2 }}
       result-ebrains-v3: ${{ steps.set-output.outputs.result-ebrains-v3 }}
       result-cscs-v3: ${{ steps.set-output.outputs.result-cscs-v3 }}
-      result-jsc-v3: ${{ steps.set-output.outputs.result-jsc-v3 }}
       
     steps:
     - name: Check out repository code
@@ -53,10 +48,6 @@ jobs:
         if [[ ${{ matrix.endpoint }} == "cscs" ]]
         then
           echo "SIIBRA_API_E2E_BASE_URL=${{ env.CSCS_ENDPOINT }}" >> $GITHUB_ENV
-        fi
-        if [[ ${{ matrix.endpoint }} == "jsc" ]]
-        then
-          echo "SIIBRA_API_E2E_BASE_URL=${{ env.JSC_ENDPOINT }}" >> $GITHUB_ENV
         fi
         if [[ ${{ matrix.endpoint }} == "ebrains" ]]
         then
@@ -85,15 +76,13 @@ jobs:
         cscs_v2=${{ needs.api-test.outputs.result-cscs-v2 }}
         ebrains_v3=${{ needs.api-test.outputs.result-ebrains-v3 }}
         cscs_v3=${{ needs.api-test.outputs.result-cscs-v3 }}
-        jsc_v3=${{ needs.api-test.outputs.result-jsc-v3 }}
 
         echo "cscs_v1: $cscs_v1"
         echo "cscs_v2: $cscs_v2"
         echo "ebrains_v3: $ebrains_v3"
         echo "cscs_v3: $cscs_v3"
-        echo "jsc_v3: $jsc_v3"
 
-        if [ -z "$cscs_v1" ] || [ -z "$cscs_v2" ] || [ -z "$ebrains_v3" ] || [ -z "$cscs_v3" ] || [ -z "$jsc_v3" ]
+        if [ -z "$cscs_v1" ] || [ -z "$cscs_v2" ] || [ -z "$ebrains_v3" ] || [ -z "$cscs_v3" ]
         then
           exit -1
         fi
