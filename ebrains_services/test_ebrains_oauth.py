@@ -28,11 +28,10 @@ oidc_clients = (
 @pytest.mark.parametrize("oidc_client", oidc_clients)
 def test_oidc(oidc_client: OIDC):
     resp = requests.get(oidc_client.url, params={
-        # deliberately commented out, to test monitoring
 
-        # "client_id": oidc_client.client_id,
-        # "redirect_uri": oidc_client.redirect_uri,
-        # "scope": oidc_client.scope,
-        # "url": oidc_client.url,
+        "client_id": oidc_client.client_id,
+        "redirect_uri": oidc_client.redirect_uri,
+        "scope": oidc_client.scope,
+        "url": oidc_client.url,
     }, allow_redirects=False)
     resp.raise_for_status()

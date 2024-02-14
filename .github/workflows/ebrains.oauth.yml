@@ -30,7 +30,7 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-    - run: pip install pytest
+    - run: pip install pytest requests
     - run: pytest -svvv ./ebrains_services/test_ebrains_oauth.py
     - if: success()
       run: |
