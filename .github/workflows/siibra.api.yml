@@ -36,7 +36,7 @@ jobs:
     - name: Check out repository code
       uses: actions/checkout@v4
     - name: Set up Python 3.10
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.10'
     - name: Install dependencies
@@ -55,7 +55,7 @@ jobs:
         fi
     - name: Run test
       run: |
-        pytest ./siibra-api/${{ matrix.version }}
+        pytest ./siibra/api/${{ matrix.version }}
     - if: success()
       id: set-output
       name: Success, set output

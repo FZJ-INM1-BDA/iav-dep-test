@@ -9,23 +9,24 @@ env:
 
 jobs:
   build:
-    
     runs-on: ubuntu-latest
-    
-    env:
-      OAUTH_V2_SA_CLIENT_ID: ${{ secrets.OAUTH_V2_SA_CLIENT_ID }}
-      OAUTH_V2_SA_CLIENT_SECRET: ${{ secrets.OAUTH_V2_SA_CLIENT_SECRET }}
-      OAUTH_V2_SA_ENDPOINT: ${{ secrets.OAUTH_V2_SA_ENDPOINT }}
-      OAUTH_V2_SA_SCOPES: ${{ secrets.OAUTH_V2_SA_SCOPES }}
+    strategy:
+      fail-fast: false
+      matrix:
+        ENDPOINT:
+        - https://siibra-spatial-backend.apps.tc.humanbrainproject.eu/
+        - https://hbp-spatial-backend.apps.hbp.eu/
 
+    env:
+      ENDPOINT: ${{ matrix.ENDPOINT }}
     steps:
     - uses: actions/checkout@v4
-    - name: Use Node.js 12
-      uses: actions/setup-node@v1
+    - uses: actions/setup-python@v4 
       with:
-        node-version: 12
-    - run: npm i
-    - run: npm run mocha -- './siibra-dep/**/*.spec.js' --timeout 5000
+        python-version: '3.10'
+    - name: 'Install test dependencies'
+      run: pip install requests pytest pytest-timeout
+    - run: pytest -svvv siibra/deps
     - if: success()
       run: |
         if [ ! -z "$SIIBRA_MONITORING_SIIBRA_DEPENDENCIES" ]
