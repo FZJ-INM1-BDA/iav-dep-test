@@ -40,15 +40,14 @@ def fail_fast_dec(id_fn=None):
             try:
                 fn_return = fn(*args, **kwargs)
                 result = CheckResult(_id, None, fn_return)
-                result.perf_ns = time.time_ns() - start_time
-                return result
             except Exception as e:
                 if FAIL_FAST:
                     print(f"Failed: {_id}: {str(e)}")
                     raise e from e
                 result = CheckResult(_id, str(e))
-            result.perf_ns = time.time_ns() - start_time
-            return result
+            finally:
+                result.perf_ns = time.time_ns() - start_time
+                return result
         return inner
     return outer
 

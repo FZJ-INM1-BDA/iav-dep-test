@@ -13,7 +13,7 @@ env:
   EBRAINS_SA_CLIENT_SECRET: ${{ secrets.EBRAINS_SA_CLIENT_SECRET }}
 jobs:
   build:
-    
+    timeout-minutes: 20
     runs-on: ubuntu-latest
     
     steps:
@@ -27,7 +27,7 @@ jobs:
           --output ${{ env.NG_PROFILE_FILE_TO_WRITE}} \
           https://data-proxy.ebrains.eu/api/v1/buckets/reference-atlas-data/${{ env.REMOTE_METRIC_PATH}}
         
-    - run: pip install requests pytest neuroglancer-scripts tqdm
+    - run: pip install requests pytest neuroglancer-scripts tqdm pytest-timeout
     - run: |
         export RUN_ID=${{ github.run_number }}
         pytest -vvv siibra/data
