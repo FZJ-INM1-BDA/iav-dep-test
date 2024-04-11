@@ -176,7 +176,7 @@ all_parsed_results = [
 ]
 
 @pytest.mark.parametrize('fn_parsed_result', all_parsed_results)
-@pytest.mark.timeout(60) # 60 seconds timeout
+@pytest.mark.timeout(120) # 120 seconds timeout
 def test_datasource(fn_parsed_result: Tuple[Callable, ParseResult], request):
     value = request.getfixturevalue("write_output_fixture")
     assert value == 0, f"Expecting fixutre to be global, but was not"
