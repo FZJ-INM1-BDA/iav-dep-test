@@ -24,8 +24,8 @@ jobs:
     - name: 'Download existing metric, if available'
       run: |
         curl -L \
-          --output ${{ env.NG_PROFILE_FILE_TO_WRITE}} \
-          https://data-proxy.ebrains.eu/api/v1/buckets/reference-atlas-data/${{ env.REMOTE_METRIC_PATH}}
+          --output ${{ env.NG_PROFILE_FILE_TO_WRITE }} \
+          https://data-proxy.ebrains.eu/api/v1/buckets/reference-atlas-data/${{ env.REMOTE_METRIC_PATH }}
         
     - run: pip install requests pytest neuroglancer-scripts tqdm pytest-timeout
     - run: |

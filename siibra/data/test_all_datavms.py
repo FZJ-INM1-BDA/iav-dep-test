@@ -103,8 +103,8 @@ def write_labels(t_results: list[tuple[ParseResult, CheckResult]]):
     # and return
     # this is so that illformed metric file never gets uploaded
     if profile_txt not in current:
-        file_to_write.unlink()
-        return
+        print("Gibberish detected, removing existing file...")
+        current = profile_txt
     
     def get_time_stamp():
         return round(time.time() * 1e3)
@@ -189,6 +189,8 @@ def test_datasource(fn_parsed_result: Tuple[Callable, ParseResult], request):
             print(f"{result.test} successful")
         else:
             print(f"{result.test} failed: {result.error}")
-    
+    check_results.append(
+        (parsed_result, result)
+    )
     assert result.error is None, f"Error: {result.error}"
 
