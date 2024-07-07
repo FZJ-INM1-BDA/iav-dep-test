@@ -4,9 +4,6 @@ on:
   schedule:
     - cron: '*/10 * * * *'
 
-env:
-  SIIBRA_MONITORING_EXPLORER: ${{ secrets.SIIBRA_MONITORING_EXPLORER }}
-
 jobs:
   build:
     
@@ -25,9 +22,3 @@ jobs:
         python-version: '3.10'
     - run: pip install -r requirements.txt
     - run: pytest siibra/explorer
-    - if: success()
-      run: |
-        if [ ! -z "$SIIBRA_MONITORING_EXPLORER" ]
-        then
-          curl "$SIIBRA_MONITORING_EXPLORER"
-        fi

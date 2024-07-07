@@ -7,9 +7,6 @@ on:
   schedule:
     - cron: '*/30 * * * *'
 
-env:
-  SIIBRA_MONITORING_DOI_REDIRECT: ${{ secrets.SIIBRA_MONITORING_DOI_REDIRECT }}
-
 jobs:
   build:
 
@@ -23,9 +20,3 @@ jobs:
         node-version: 20.x
     - run: npm i
     - run: ./node_modules/.bin/cypress run -s ./cypress/e2e/ebrains-doi.cy.js
-    - if: success()
-      run: |
-        if [ ! -z "$SIIBRA_MONITORING_DOI_REDIRECT" ]
-        then
-          curl "$SIIBRA_MONITORING_DOI_REDIRECT"
-        fi

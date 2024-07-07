@@ -4,9 +4,6 @@ on:
   schedule:
     - cron: '*/10 * * * *'
 
-env:
-  SIIBRA_MONITORING_SIIBRA_DEPENDENCIES: ${{ secrets.SIIBRA_MONITORING_SIIBRA_DEPENDENCIES }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,9 +24,3 @@ jobs:
     - name: 'Install test dependencies'
       run: pip install requests pytest pytest-timeout
     - run: pytest -svvv siibra/deps
-    - if: success()
-      run: |
-        if [ ! -z "$SIIBRA_MONITORING_SIIBRA_DEPENDENCIES" ]
-        then
-          curl "$SIIBRA_MONITORING_SIIBRA_DEPENDENCIES"
-        fi

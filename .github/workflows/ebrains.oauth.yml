@@ -7,9 +7,6 @@ on:
   schedule:
     - cron: '*/10 * * * *'
 
-env:
-  SIIBRA_MONITORING_OAUTH: ${{ secrets.SIIBRA_MONITORING_OAUTH }}
-
 jobs:
   build:
 
@@ -32,9 +29,3 @@ jobs:
         python-version: '3.10'
     - run: pip install pytest requests
     - run: pytest -svvv ./ebrains_services/test_ebrains_oauth.py
-    - if: success()
-      run: |
-        if [ ! -z "$SIIBRA_MONITORING_OAUTH" ]
-        then
-          curl "$SIIBRA_MONITORING_OAUTH"
-        fi

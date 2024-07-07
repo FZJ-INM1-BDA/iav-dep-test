@@ -5,7 +5,6 @@ on:
     - cron: '*/10 * * * *'
 
 env:
-  SIIBRA_MONITORING_SIIBRA_DATA_1UM: ${{ secrets.SIIBRA_MONITORING_SIIBRA_DATA_1UM }}
   REMOTE_METRIC_PATH: 'metrics/datavm.txt'
   NG_PROFILE_FILE_TO_WRITE: 'datavm.txt'
   DETAIL_FLAG: "1"  
@@ -31,12 +30,6 @@ jobs:
     - run: |
         export RUN_ID=${{ github.run_number }}
         pytest -vvv siibra/data
-    - if: success()
-      run: |
-        if [ ! -z "$SIIBRA_MONITORING_SIIBRA_DATA_1UM" ]
-        then
-          curl "$SIIBRA_MONITORING_SIIBRA_DATA_1UM"
-        fi
     - if: always()
       uses: "./.github/actions/upload_dataproxy"
       with:

@@ -4,7 +4,6 @@ on:
   schedule:
     - cron: '*/10 * * * *'
 env:
-  SIIBRA_MONITORING_SIIBRA_API: ${{ secrets.SIIBRA_MONITORING_SIIBRA_API }}
   CSCS_ENDPOINT: https://siibra-api-stable.apps.hbp.eu
   EBRAINS_ENDPOINT: https://siibra-api-prod.apps.tc.humanbrainproject.eu
 
@@ -85,11 +84,4 @@ jobs:
         if [ -z "$cscs_v1" ] || [ -z "$cscs_v2" ] || [ -z "$ebrains_v3" ] || [ -z "$cscs_v3" ]
         then
           exit -1
-        fi
-    - name: Report to monitoring
-      if: success()
-      run: |
-        if [ ! -z "$SIIBRA_MONITORING_SIIBRA_API" ]
-        then
-          curl "$SIIBRA_MONITORING_SIIBRA_API"
         fi
