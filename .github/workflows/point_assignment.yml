@@ -1,0 +1,29 @@
+name: "[siibra-python] [10min]"
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        spy-version:
+        - 1.0a14
+        - 1.0a11
+        - 1.0a9
+        - 1.0a8
+        - 1.0a6
+        - 0.5a2
+        - 0.4a80
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4 
+      with:
+        python-version: '3.10'
+    - name: 'Install siibra python version ${{ matrix.spy-version }}'
+      run: pip install siibra==${{ matrix.spy-version }}
+    - name: "Run point assignment"
+      run: python siibra/python/check_point_assignment.py
+    
