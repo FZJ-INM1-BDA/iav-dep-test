@@ -2,6 +2,7 @@ import os
 import requests
 import pytest
 from itertools import permutations
+import time
 
 endpoint = os.getenv("ENDPOINT", "https://siibra-spatial-backend.apps.tc.humanbrainproject.eu/")
 print(f"[ENV] testing : {endpoint}")
@@ -15,6 +16,13 @@ spaces = (
 )
 
 perm = list(permutations(spaces, 2))
+
+@pytest.fixture(autouse=True)
+def slowdown():
+    yield
+    time.sleep(1)
+    # spatial transform often struggles with successive requests
+    # 1 sec sleep allow the requests to be spread out
 
 @pytest.mark.parametrize("source_space, target_space", perm)
 @pytest.mark.timeout(5) # 5 sec timeout
