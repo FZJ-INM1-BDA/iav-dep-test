@@ -26,10 +26,16 @@ def slowdown():
     # spatial transform often struggles with successive requests
     # 1 sec sleep allow the requests to be spread out
 
+@pytest.fixture(scope="session")
+def session():
+    sess = requests.Session()
+    sess.get(endpoint)
+    yield sess
+
 @pytest.mark.parametrize("source_space, target_space", perm)
-@pytest.mark.timeout(5) # 5 sec timeout
-def test_spatial_transform(source_space: str, target_space: str):
-    resp = requests.post(endpoint, json={
+@pytest.mark.timeout(5, func_only=True) # 5 sec timeout
+def test_spatial_transform(source_space: str, target_space: str, session):
+    resp = session.post(endpoint, json={
         "source_points": [
             [-56.180688,-32,35.406444],
         ],
@@ -37,3 +43,4 @@ def test_spatial_transform(source_space: str, target_space: str):
         "target_space": target_space,
     })
     resp.raise_for_status()
+    resp.json()
