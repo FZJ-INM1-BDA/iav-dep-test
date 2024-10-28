@@ -19,8 +19,10 @@ perm = list(permutations(spaces, 2))
 
 @pytest.fixture(autouse=True)
 def slowdown():
+    start = time.time()
     yield
-    time.sleep(1)
+    print()
+    print("used:", time.time() - start)
     # spatial transform often struggles with successive requests
     # 1 sec sleep allow the requests to be spread out
 
