@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      # since both hostname funnel to the same service, max parallel set to 1 to ensure the endpoint is not hammered
+      max-parallel: 1
       matrix:
         ENDPOINT:
         - https://siibra-spatial-backend.apps.tc.humanbrainproject.eu/
@@ -18,7 +20,7 @@ jobs:
       ENDPOINT: ${{ matrix.ENDPOINT }}
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-python@v4 
+    - uses: actions/setup-python@v5
       with:
         python-version: '3.10'
     - name: 'Install test dependencies'
