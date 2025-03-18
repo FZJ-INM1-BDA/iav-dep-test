@@ -5,7 +5,7 @@ on:
     - cron: '*/10 * * * *'
 
 jobs:
-  build:
+  spatial-backend:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -25,4 +25,25 @@ jobs:
         python-version: '3.10'
     - name: 'Install test dependencies'
       run: pip install requests pytest pytest-timeout
-    - run: pytest -svvv siibra/deps
+    - run: pytest -svvv siibra/deps/spatial_backend
+
+
+  siibra-jugex:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        ENDPOINT:
+        - https://siibra-jugex.apps.tc.humanbrainproject.eu
+
+    env:
+      SIIBRA_DEPS_JUGEX_ENDPOINT: ${{ matrix.ENDPOINT }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    - name: 'Install test dependencies'
+      run: pip install requests pytest pytest-timeout
+    - run: pytest -svvv siibra/deps/jugex
