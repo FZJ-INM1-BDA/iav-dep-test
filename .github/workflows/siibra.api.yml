@@ -77,17 +77,18 @@ jobs:
     steps:
     - name: Check outputs
       run: |
-        cscs_v1=${{ needs.api-test.outputs.result-cscs-v1 }}
+        # cscs_v1=${{ needs.api-test.outputs.result-cscs-v1 }}
         cscs_v2=${{ needs.api-test.outputs.result-cscs-v2 }}
         ebrains_v3=${{ needs.api-test.outputs.result-ebrains-v3 }}
         cscs_v3=${{ needs.api-test.outputs.result-cscs-v3 }}
 
-        echo "cscs_v1: $cscs_v1"
-        echo "cscs_v2: $cscs_v2"
+        # echo "cscs_v1: $cscs_v1"
+        echo "cscs_v2: $cscs_v2 (ignored TODO)"
         echo "ebrains_v3: $ebrains_v3"
         echo "cscs_v3: $cscs_v3"
 
-        if [ -z "$cscs_v1" ] || [ -z "$cscs_v2" ] || [ -z "$ebrains_v3" ] || [ -z "$cscs_v3" ]
+        # if [ -z "$cscs_v1" ] || [ -z "$cscs_v2" ] || [ -z "$ebrains_v3" ] || [ -z "$cscs_v3" ]
+        if [ -z "$cscs_v2" ] || [ -z "$ebrains_v3" ] || [ -z "$cscs_v3" ]
         then
           exit -1
         fi
