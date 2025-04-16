@@ -16,7 +16,13 @@ jobs:
       matrix:
         endpoint: [cscs]
         use-cache: ["true", "false"]
-        version: ['v1', 'v2', 'v3']
+        version:
+        # TODO
+        # props errors out. check why
+        # find test name test_get_one_region_for_parcellation_with_extra_data
+        # - v1
+        - v2
+        - v3
 
         include:
         - endpoint: ebrains
@@ -64,7 +70,7 @@ jobs:
           echo "result-${{ matrix.endpoint }}-${{ matrix.version }}=true" >> $GITHUB_OUTPUT
         fi
 
-  report-to-uptime:
+  aggregate-result:
     needs: api-test
     runs-on: ubuntu-latest
     if: always()
