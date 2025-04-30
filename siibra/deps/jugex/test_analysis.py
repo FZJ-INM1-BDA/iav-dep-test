@@ -5,7 +5,7 @@ import pytest
 
 ENDPOINT = os.getenv("SIIBRA_DEPS_JUGEX_ENDPOINT", "https://siibra-jugex.apps.tc.humanbrainproject.eu")
 
-@pytest.mark.timeout(60, func_only=True) # 5 sec timeout
+@pytest.mark.timeout(60, func_only=True) # 60 sec timeout
 def test_analysis():
     payload = {
         "parcellation_id": "minds/core/parcellationatlas/v1.0.0/94c1125b-b87e-45e4-901c-00daee7f2579-290",

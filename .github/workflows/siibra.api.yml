@@ -15,19 +15,18 @@ jobs:
       fail-fast: false
       matrix:
         endpoint: [cscs]
-        use-cache: ["true", "false"]
+        use-cache: ["true"]
         version:
-        # TODO
-        # props errors out. check why
-        # find test name test_get_one_region_for_parcellation_with_extra_data
-        # - v1
+        - v1
         - v2
         - v3
-
         include:
         - endpoint: ebrains
           version: "v3"
           use-cache: "true"
+        - endpoint: ebrains
+          version: "v3"
+          use-cache: "false"
     env:
       USE_CACHE: ${{ matrix.use-cache }}
 
@@ -82,13 +81,11 @@ jobs:
         ebrains_v3=${{ needs.api-test.outputs.result-ebrains-v3 }}
         cscs_v3=${{ needs.api-test.outputs.result-cscs-v3 }}
 
-        # echo "cscs_v1: $cscs_v1"
-        echo "cscs_v2: $cscs_v2 (ignored TODO)"
+        echo "cscs_v1: $cscs_v1"
         echo "ebrains_v3: $ebrains_v3"
         echo "cscs_v3: $cscs_v3"
 
-        # if [ -z "$cscs_v1" ] || [ -z "$cscs_v2" ] || [ -z "$ebrains_v3" ] || [ -z "$cscs_v3" ]
-        if [ -z "$cscs_v2" ] || [ -z "$ebrains_v3" ] || [ -z "$cscs_v3" ]
+        if [ -z "$cscs_v1" ] || [ -z "$cscs_v2" ] || [ -z "$ebrains_v3" ] || [ -z "$cscs_v3" ]
         then
           exit -1
         fi
