@@ -5,7 +5,7 @@ on:
     - cron: '*/10 * * * *'
 env:
   CSCS_ENDPOINT: https://siibra-api-stable.apps.hbp.eu
-  EBRAINS_ENDPOINT: https://siibra-api-prod.apps.tc.humanbrainproject.eu
+  EBRAINS_ENDPOINT: https://siibra-api.apps.ebrains.eu
 
 jobs:
 

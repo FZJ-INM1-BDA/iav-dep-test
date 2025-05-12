@@ -1,10 +1,10 @@
 import os
-import requests
 import pytest
 from itertools import product
 from tempfile import NamedTemporaryFile
 import nibabel as nib
 import numpy as np
+from .util import Session
 
 base_url=os.getenv('SIIBRA_API_E2E_BASE_URL', 'http://localhost:8000').rstrip("/")
 
@@ -26,6 +26,8 @@ args = product(
     (HOC1_RIGHT, FP1_RIGHT, None)
 )
 
+client = Session(base_url=base_url)
+
 @pytest.fixture
 def tmp_named_file():
     tmp_file = NamedTemporaryFile(suffix=".nii.gz", delete=False)
@@ -44,7 +46,7 @@ def test_get_map(space_id,parc_id,region_name,tmp_named_file):
     if region_name:
         query_param['region_id'] = region_name
 
-    response = requests.get(f"{base_url}{LABELLED_ENDPOINT}", params=query_param)
+    response = client.get(LABELLED_ENDPOINT, params=query_param)
     response.raise_for_status()
     tmp_named_file.write(response.content)
     tmp_named_file.close()
@@ -79,7 +81,7 @@ def test_map_shape(space_shape,parc_id,map_endpoint,region_name, tmp_named_file)
     if region_name:
         query_param['region_id'] = region_name
 
-    response = requests.get(f"{base_url}{map_endpoint}", params=query_param)
+    response = client.get(map_endpoint, params=query_param)
     response.raise_for_status()
     tmp_named_file.write(response.content)
     tmp_named_file.close()
