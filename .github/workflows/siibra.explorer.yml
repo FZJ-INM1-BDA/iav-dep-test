@@ -12,7 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        end-point: [ 'https://atlases.ebrains.eu/viewer/', 'https://siibra-explorer.apps.tc.humanbrainproject.eu/viewer/' ]
+        end-point:
+        - https://atlases.ebrains.eu/viewer/
     env:
       SIIBRA_EXPLORER_ENDPOINT: ${{ matrix.end-point }}
     steps:

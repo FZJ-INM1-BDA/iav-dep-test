@@ -4,7 +4,7 @@ from typing import Callable, Dict, List
 from itertools import product
 import pytest
 
-ENDPOINT = os.getenv("SIIBRA_DEPS_JUGEX_ENDPOINT", "https://siibra-jugex.apps.tc.humanbrainproject.eu")
+ENDPOINT = os.getenv("SIIBRA_DEPS_JUGEX_ENDPOINT", "https://siibra-jugex.apps.ebrains.eu")
 
 REG: Dict[str, Callable[[requests.Response], None]] = {}
 

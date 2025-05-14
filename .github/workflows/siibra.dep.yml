@@ -13,7 +13,6 @@ jobs:
       max-parallel: 1
       matrix:
         ENDPOINT:
-        - https://siibra-spatial-backend.apps.tc.humanbrainproject.eu/
         - https://hbp-spatial-backend.apps.hbp.eu/
 
     env:
@@ -35,7 +34,7 @@ jobs:
       max-parallel: 1
       matrix:
         ENDPOINT:
-        - https://siibra-jugex.apps.tc.humanbrainproject.eu
+        - https://siibra-jugex.apps.ebrains.eu
 
     env:
       SIIBRA_DEPS_JUGEX_ENDPOINT: ${{ matrix.ENDPOINT }}
@@ -55,7 +54,7 @@ jobs:
       max-parallel: 1
       matrix:
         ENDPOINT:
-        - https://siibra-jugex.apps.tc.humanbrainproject.eu/viewer_plugin
+        - https://siibra-jugex.apps.ebrains.eu/viewer_plugin
         - https://ngpy.apps.hbp.eu/viewer_plugin
 
     env:

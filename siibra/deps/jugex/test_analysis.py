@@ -3,7 +3,7 @@ import requests
 import time
 import pytest
 
-ENDPOINT = os.getenv("SIIBRA_DEPS_JUGEX_ENDPOINT", "https://siibra-jugex.apps.tc.humanbrainproject.eu")
+ENDPOINT = os.getenv("SIIBRA_DEPS_JUGEX_ENDPOINT", "https://siibra-jugex.apps.ebrains.eu")
 
 @pytest.mark.timeout(60, func_only=True) # 60 sec timeout
 def test_analysis():

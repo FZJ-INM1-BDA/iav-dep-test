@@ -8,6 +8,7 @@ import time
 import pytest
 from itertools import repeat
 from typing import Callable, Tuple, List
+from unittest.mock import patch
 
 from .util.ng_volume import get_neuroglancer_src, foo_test_vol_ngs
 from .util.common import CheckResult, pluck_by_host, get_all_mirrors
@@ -34,6 +35,12 @@ volumetric_ng: list[ParseResult] = []
 surface_mesh_ng: list[ParseResult] = []
 
 check_results: list[tuple[ParseResult, CheckResult]] = []
+
+@pytest.fixture(autouse=True)
+def patch_user_agent():
+    with patch("requests.utils.default_user_agent") as fn:
+        fn.return_value = "iav-dept-test bot (https://github.com/fzj-inm1-bda/iav-dep-test.git)"
+        yield
 
 with TemporaryDirectory() as tmpdir:
     resp = requests.get(f"{GITLAB_ROOT}/api/v4/projects/{GITLAB_PROJECT_ID}/repository/archive.tar.gz?reftag={GITLAB_REF_TAG}")
