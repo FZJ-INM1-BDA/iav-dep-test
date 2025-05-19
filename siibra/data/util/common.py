@@ -69,10 +69,13 @@ def pluck_by_host(items: list[ParseResult], idx: int, n: int=1):
             for items in groupby_dict.values()
             for item in items[(idx % len(items)):(idx % len(items) + n)]]
 
+
 def get_all_mirrors(url_obj: ParseResult) -> list[ParseResult]:
-    if url_obj.hostname == "neuroglancer.humanbrainproject.eu":
-        prev_url = url_obj.geturl()
-        new_url = prev_url.replace("neuroglancer.humanbrainproject.eu",
-                                   "data-proxy.ebrains.eu/api/v1/buckets/reference-atlas-data")
-        return [url_obj, urlparse(new_url)]
+    # mirrors are broken due to cscs object backend migration
+    # TODO need to reconsider the mirroring strategy
+    # if url_obj.hostname == "neuroglancer.humanbrainproject.eu":
+    #     prev_url = url_obj.geturl()
+    #     new_url = prev_url.replace("neuroglancer.humanbrainproject.eu",
+    #                                "data-proxy.ebrains.eu/api/v1/buckets/reference-atlas-data")
+    #     return [url_obj, urlparse(new_url)]
     return  [url_obj]
