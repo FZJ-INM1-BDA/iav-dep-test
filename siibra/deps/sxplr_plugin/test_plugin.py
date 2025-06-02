@@ -1,7 +1,7 @@
 import os
 import requests
 
-ENDPOINT = os.getenv("SIIBRA_DEPS_PLUGIN_ENDPOINT", "https://siibra-jugex.apps.tc.humanbrainproject.eu/viewer_plugin")
+ENDPOINT = os.getenv("SIIBRA_DEPS_PLUGIN_ENDPOINT", "https://siibra-jugex.apps.ebrains.eu/viewer_plugin")
 
 def test_plugin_html():
     resp = requests.get(f"{ENDPOINT}/manifest.json")

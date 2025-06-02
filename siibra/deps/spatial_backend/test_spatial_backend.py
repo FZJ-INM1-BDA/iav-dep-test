@@ -4,7 +4,7 @@ import pytest
 from itertools import permutations
 import time
 
-endpoint = os.getenv("ENDPOINT", "https://siibra-spatial-backend.apps.tc.humanbrainproject.eu/")
+endpoint = os.getenv("ENDPOINT", "https://siibra-spatial-backend.apps.ebrains.eu/")
 print(f"[ENV] testing : {endpoint}")
 
 endpoint = endpoint.rstrip("/") + "/v1/transform-points"
