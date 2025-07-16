@@ -16,3 +16,14 @@ locust --host https://atlases.ebrains.eu \
     --skip-log \
     -f siibra/sxplr_locust/
 ```
+
+## Automatic run
+
+```sh
+apt update
+apt install python3-pip python3.12-venv
+git clone https://github.com/FZJ-INM1-BDA/iav-dep-test.git
+cd iav-dep-test
+python3 -m venv venv/ && . venv/bin/activate
+pip install -r siibra/sxplr_locust/requirements.txt
+```
