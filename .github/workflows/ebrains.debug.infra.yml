@@ -1,4 +1,4 @@
-name: "[ebrain services] [30min] DOI Redirect"
+name: "[ebrain debug] [adhoc] debug infra"
 
 on:
   push:
