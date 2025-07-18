@@ -1,0 +1,16 @@
+name: "[ebrain services] [30min] DOI Redirect"
+
+on:
+  push:
+    paths:
+      - '.github/workflows/debug.yml'
+jobs:
+  debug-ebrains-infra:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Debug TLS
+      run: |
+        curl -v https://docker-registry.ebrains.eu/v2/
