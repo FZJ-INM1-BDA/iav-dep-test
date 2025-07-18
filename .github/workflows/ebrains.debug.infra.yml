@@ -3,7 +3,7 @@ name: "[ebrain services] [30min] DOI Redirect"
 on:
   push:
     paths:
-      - '.github/workflows/debug.yml'
+      - '.github/workflows/ebrains.debug.infra.yml'
 jobs:
   debug-ebrains-infra:
 
