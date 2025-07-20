@@ -4,6 +4,12 @@ require `locust`
 
 created and tested with version `2.37.13`
 
+## Create fresh txt files from .har file
+
+```
+jq -r '.log.entries[].request.url' my_log.har > my_log.txt
+```
+
 ## How to run
 
 ```sh
