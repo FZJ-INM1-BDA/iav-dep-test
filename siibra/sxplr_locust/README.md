@@ -33,3 +33,23 @@ cd iav-dep-test
 python3 -m venv venv/ && . venv/bin/activate
 pip install -r siibra/sxplr_locust/requirements.txt
 ```
+## Sample metrics
+
+### chunk
+
+```sh
+# no cdn
+time curl -H 'Accept-Encoding: gzip' --output /dev/null 'https://neuroglancer.humanbrainproject.eu/precomputed/BigBrainRelease.2015/8bit/320um/192-256_128-192_192-256'
+```
+
+
+```sh
+# cdn
+time curl -H 'Accept-Encoding: gzip' --output /dev/null 'https://neuroglancer-test-vm.examcopedia.club/precomputed/BigBrainRelease.2015/8bit/320um/192-256_128-192_192-256'
+```
+
+fzj: 0m0.098s
+fzj (cdn): 0m0.156s
+
+ap-southeast: 0m2.193s
+ap-southeast (cdn): 0m0.053s
