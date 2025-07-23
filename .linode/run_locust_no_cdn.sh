@@ -18,6 +18,6 @@ cd iav-dep-test \
         --csv locust_output/output \
         --json-file locust_output/output \
         --skip-log \
-        -f siibra/sxplr_locust/locust_cdn.py
+        -f siibra/sxplr_locust/locust_no_cdn.py
 
 # certifi==2025.1.31
