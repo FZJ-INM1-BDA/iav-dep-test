@@ -12,4 +12,4 @@ cd iav-dep-test \
         --csv locust_output/output \
         --json-file locust_output/output \
         --skip-log \
-        -f siibra/sxplr_locust/locustfile.py
+        -f siibra/sxplr_locust/locustfile_cdn.py

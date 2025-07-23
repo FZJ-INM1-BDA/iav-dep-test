@@ -7,7 +7,7 @@ exceptions = (
     "https://cdn.plot.ly"
 )
 
-with open("siibra/sxplr_locust/bigbrain.txt", "r") as fp:
+with open("siibra/sxplr_locust/b20_0047.txt", "r") as fp:
     urls_txt = fp.read()
 urls = [u
         for u in urls_txt.split("\n")
