@@ -11,6 +11,10 @@ then
     exit 1
 fi
 
+# eu-central
+# us-west
+# us-east
+# ap-southeast
 if [[ -z "$LINODE_REGION" ]]
 then
     echo "LINODE_REGION envvar must be set"
@@ -18,7 +22,8 @@ then
 fi
 
 
-curl \
+provision_result=$(curl \
+    --fail-with-body \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $LINODE_TOKEN" \
     -X POST -d '{
@@ -32,4 +37,15 @@ curl \
             "xgui3783"
         ],
         "disk_encryption": "disabled"
-    }' https://api.linode.com/v4/linode/instances
+    }' https://api.linode.com/v4/linode/instances)
+
+
+if [[ "$?" != "0" ]]
+then
+    echo "Create linode failed"
+    exit 1
+fi
+
+echo "Provision succeeded!"
+
+echo $provision_result | jq '.id'

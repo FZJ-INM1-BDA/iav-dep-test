@@ -1,14 +1,54 @@
+import os
 from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass
 
 from locust import HttpUser, task
+
+LOCUST_FILENAME = os.getenv("LOCUST_FILENAME", "siibra/sxplr_locust/bigbrain.txt")
+LOCUST_TARGET = os.getenv("LOCUST_TARGET")
+
+@dataclass
+class Target:
+    name: str
+    includes: list[str]
+    excludes: list[str]
+
+
+target_dictionaries = [
+    Target(
+        name="siibra-explorer",
+        includes=[
+            "https://atlases.ebrains.eu/viewer"
+        ],
+        excludes=[]
+    ),
+    Target(
+        name="siibra-api",
+        includes=[
+            "https://siibra-api.apps."
+        ],
+        excludes=[
+            "&bbox="
+        ]
+    ),
+    Target(
+        name="data-vm",
+        includes=[
+            "https://neuroglancer.humanbrainproject.eu"
+        ],
+        excludes=[]
+    )
+]
+
 
 exceptions = (
     "https://stackpath",
     "https://cdn.plot.ly"
 )
 
-with open("siibra/sxplr_locust/b20_0047.txt", "r") as fp:
+with open(LOCUST_FILENAME, "r") as fp:
     urls_txt = fp.read()
+
 urls = [u
         for u in urls_txt.split("\n")
         if (
@@ -17,7 +57,26 @@ urls = [u
             or not u.startswith("https")
             )]
 
-class HelloWorldUser(HttpUser):
+class SiibraExplorerUser(HttpUser):
+
+    def on_start(self):
+        global urls
+
+        use_dictionary = None
+        for d in target_dictionaries:
+            if d.name == LOCUST_TARGET:
+                use_dictionary = d
+                break
+        
+        if use_dictionary is None:
+            return
+        
+        urls = [u
+                for u in urls
+                if (
+                    any(incl in u for incl in use_dictionary.includes)
+                    and all(excl not in u for excl in use_dictionary.excludes)
+                )]
 
     @task
     def bigbrain_zoomin(self):
@@ -31,25 +90,3 @@ class HelloWorldUser(HttpUser):
                     urls
                 )
             )
-
-# def main():
-#     with open("siibra/latency/bigbrain.txt", "r") as fp:
-#         urls_txt = fp.read()
-#     urls = [u for u in urls_txt.split("\n") if u != ""]
-#     def get(url: str):
-#         resp = sess.get(url)
-#         return resp.content
-
-
-#     with ThreadPoolExecutor(max_workers=6) as ex:
-#         all_content = list(
-#             ex.map(
-#                 get,
-#                 urls
-#             )
-#         )
-#         pass
-#     pass
-
-# if __name__ == "__main__":
-#     main()

@@ -1,0 +1,65 @@
+- name: "Await provision node"
+  hosts: localhost
+  
+  vars:
+    LINODE_TOKEN: XXX
+    LINODE_ID: XXX
+
+  tasks:
+
+  - name: "Validate"
+    assert:
+      that:
+      - "LINODE_TOKEN != 'XXX'"
+      - "LINODE_ID != 'XXX'"
+      fail_msg: |
+        Inputs must be provided:
+
+        - LINODE_TOKEN
+        - LINODE_ID
+
+  - name: Query
+    shell: |
+      while true
+      do
+        result=$(curl --fail-with-body \
+          -H "Accept: application/json" \
+          -H "Authorization: Bearer {{ LINODE_TOKEN }}" \
+          https://api.linode.com/v4/linode/instances/{{ LINODE_ID }})
+
+
+        if [[ "$?" != "0" ]]
+        then
+            echo "Query linode failed"
+            exit 1
+        fi
+
+        status=$(echo $result | jq -r '.status')
+
+        if [[ "$status" == "running" ]]
+        then
+            echo $result | jq -r '.ipv4[0]'
+            exit 0
+        fi
+        sleep 10
+      done
+
+    become: false
+    args:
+      executable: /bin/bash
+    changed_when: false
+    register: query_output
+
+  - name: "set linode id"
+    set_fact:
+      LINODE_IPV4: "{{ query_output.stdout }}"
+  
+  - name: "Add host"
+    add_host:
+      hostname: "{{ query_output.stdout }}"
+      groups: remotevms
+
+  - name: "debug"
+    debug: 
+      msg:
+      - "Linode IPV4: {{ LINODE_IPV4 }}"
