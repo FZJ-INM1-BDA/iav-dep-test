@@ -1,4 +1,4 @@
-- name: "Provision node"
+- name: "Setup node"
   hosts: remotevms
 
   tasks:

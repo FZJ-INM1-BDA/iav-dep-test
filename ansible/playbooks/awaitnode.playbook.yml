@@ -3,7 +3,7 @@
   
   vars:
     LINODE_TOKEN: XXX
-    LINODE_ID: XXX
+    LINODE_IDS: XXX
 
   tasks:
 
@@ -11,55 +11,51 @@
     assert:
       that:
       - "LINODE_TOKEN != 'XXX'"
-      - "LINODE_ID != 'XXX'"
+      - "LINODE_IDS != 'XXX'"
       fail_msg: |
         Inputs must be provided:
 
         - LINODE_TOKEN
-        - LINODE_ID
+        - LINODE_IDS
 
-  - name: Query
-    shell: |
-      while true
-      do
-        result=$(curl --fail-with-body \
-          -H "Accept: application/json" \
-          -H "Authorization: Bearer {{ LINODE_TOKEN }}" \
-          https://api.linode.com/v4/linode/instances/{{ LINODE_ID }})
+  - name: "Ensure readies"
+    uri: 
+      url: https://api.linode.com/v4/linode/instances/{{ item }}
+      headers:
+        Authorization: "Bearer {{ LINODE_TOKEN }}"
+        Accept: "application/json"
+    register: node_status
+    until: node_status.json.status == "running"
+    retries: 600
+    delay: 1
+    loop: "{{ LINODE_IDS }}"
 
-
-        if [[ "$?" != "0" ]]
-        then
-            echo "Query linode failed"
-            exit 1
-        fi
-
-        status=$(echo $result | jq -r '.status')
-
-        if [[ "$status" == "running" ]]
-        then
-            echo $result | jq -r '.ipv4[0]'
-            exit 0
-        fi
-        sleep 10
-      done
-
-    become: false
+  - name: "set linode id"
+    set_fact:
+      LINODE_IDS_IPV4S: "{{ dict(
+          node_status.results | map(attribute='item')
+          | zip (node_status.results | map(attribute='json') | map(attribute='ipv4') | flatten )
+        ) }}"
+  
+  - debug: var=LINODE_IDS_IPV4S
+  
+- name: "Ensure reachable"
+  hosts: localhost
+  tasks:
+  - shell: |
+      ssh -o StrictHostKeyChecking=no -i ~/.ssh/zeph root@{{ item }} -- echo "done"
     args:
       executable: /bin/bash
     changed_when: false
     register: query_output
+    until: query_output.stdout == "done"
+    retries: 60
+    delay: 1
+    loop: "{{ LINODE_IDS_IPV4S | dict2items | map(attribute='value') }}"
 
-  - name: "set linode id"
-    set_fact:
-      LINODE_IPV4: "{{ query_output.stdout }}"
-  
   - name: "Add host"
     add_host:
-      hostname: "{{ query_output.stdout }}"
+      hostname: "{{ item }}"
       groups: remotevms
-
-  - name: "debug"
-    debug: 
-      msg:
-      - "Linode IPV4: {{ LINODE_IPV4 }}"
+    loop: "{{ LINODE_IDS_IPV4S | dict2items | map(attribute='value') }}"
+    changed_when: false
