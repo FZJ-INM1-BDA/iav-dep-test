@@ -4,7 +4,6 @@ package-lock.json
 venv
 __pycache__
 
-locust_output/*
 .linode/token
 
 *.har
