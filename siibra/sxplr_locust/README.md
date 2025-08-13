@@ -10,6 +10,10 @@ created and tested with version `2.37.13`
 jq -r '.log.entries[].request.url' my_log.har > my_log.txt
 ```
 
+```
+jq '[.log.entries[] | { start: .startedDateTime, url: .request.url }]' my_log.har > my_log_timing.json
+```
+
 ## How to run
 
 ```sh
