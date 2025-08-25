@@ -17,7 +17,7 @@ from .util.ng_mesh import get_neuroglancer_surf_src, foo_test_surf_ngs
 
 GITLAB_ROOT = os.getenv("GITLAB_ROOT", "https://jugit.fz-juelich.de")
 GITLAB_PROJECT_ID = os.getenv("GITLAB_PROJECT_ID", "3484")
-GITLAB_REF_TAG = os.getenv("GITLAB_REF_TAG", "master")
+GITLAB_REF_TAG = os.getenv("GITLAB_REF_TAG", "v0_4_EOL")
 DETAIL_FLAG = os.getenv("DETAIL_FLAG")
 RUN_ID = int(os.getenv("RUN_ID", "0"))
 PLUCK_NUM = int(os.getenv("PLUCK_NUM", "1"))
