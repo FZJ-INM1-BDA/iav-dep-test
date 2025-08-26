@@ -38,6 +38,7 @@ check_results: list[tuple[ParseResult, CheckResult]] = []
 
 @pytest.fixture(autouse=True)
 def patch_user_agent():
+    print(f"{GITLAB_ROOT=!r} {GITLAB_PROJECT_ID=!r} {GITLAB_REF_TAG=!r}")
     with patch("requests.utils.default_user_agent") as fn:
         fn.return_value = "iav-dept-test bot (https://github.com/fzj-inm1-bda/iav-dep-test.git)"
         yield
