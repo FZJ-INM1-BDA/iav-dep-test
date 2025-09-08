@@ -1,4 +1,4 @@
-name: "[siibra-sa] [10min]"
+name: "[ebrains services] OIDC service account [10min]"
 
 on:
   schedule:
