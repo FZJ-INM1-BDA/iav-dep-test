@@ -1,8 +1,8 @@
-name: "[siibra-explorer] [10min]"
+name: "[siibra-explorer] [30min]"
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/30 * * * *'
 
 jobs:
   build:
