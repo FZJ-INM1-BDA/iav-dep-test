@@ -9,6 +9,7 @@ from itertools import product
 from tqdm import tqdm
 import numpy as np
 from neuroglancer_scripts.http_accessor import HttpAccessor
+from neuroglancer_scripts.sharded_http_accessor import ShardedHttpAccessor
 from neuroglancer_scripts.precomputed_io import get_IO_for_existing_dataset
 
 from .common import get_all_http_str, fail_fast_dec, CheckResult
@@ -58,6 +59,13 @@ def _test_vol_ng(url: str) -> CheckResult:
     io = get_IO_for_existing_dataset(accessor)
     if NG_QUICK_CHECK:
         return [io.info]
+    
+    if scales := io.info.get("scales"):
+        assert len(scales) > 0
+        scale, *_ = scales
+        if scale.get("sharding"):
+            accessor = ShardedHttpAccessor(url)
+            io = get_IO_for_existing_dataset(accessor)
 
     scales = io.info.get("scales", [])
     assert len(scales) > 0, f"scales len need to be > 0"
@@ -89,7 +97,7 @@ def _test_vol_ng(url: str) -> CheckResult:
         chunk_sizes = np.array(scale.get("chunk_sizes")[0])
 
         grid_aligned_start_vox = np.maximum([0 ,0, 0], start_nm / res // chunk_sizes * chunk_sizes).astype(np.uint64)
-        grid_aligned_end_vox = np.minimum(scale.get("size"), np.ceil(end_nm / res / chunk_sizes) * chunk_sizes).astype(np.uint64)
+        grid_aligned_end_vox = np.minimum(scale.get("size"), np.ceil(end_nm / res // chunk_sizes) * chunk_sizes).astype(np.uint64)
 
 
         start_end_chunk_size = [val for val in zip(
