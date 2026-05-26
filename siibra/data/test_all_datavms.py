@@ -38,7 +38,7 @@ check_results: list[tuple[ParseResult, CheckResult]] = []
 
 @pytest.fixture(autouse=True)
 def patch_user_agent():
-    print(f"{GITLAB_ROOT=!r} {GITLAB_PROJECT_ID=!r} {GITLAB_REF_TAG=!r}")
+    print(f"{GITLAB_ROOT=!r} {GITLAB_PROJECT_ID=!r} {GITLAB_REF_TAG=!r} {RUN_ID=!r}")
     with patch("requests.utils.default_user_agent") as fn:
         fn.return_value = "iav-dept-test bot (https://github.com/fzj-inm1-bda/iav-dep-test.git)"
         yield
@@ -178,9 +178,9 @@ def write_output_fixture():
 
 
 all_parsed_results = [
-    *zip(repeat(foo_test_static_file), static_file_urls),
-    *zip(repeat(foo_test_vol_ngs), volumetric_ng),
-    *zip(repeat(foo_test_surf_ngs), surface_mesh_ng),
+    *zip(repeat(foo_test_static_file), static_file_urls, repeat("test_foo_test_static_file")),
+    *zip(repeat(foo_test_vol_ngs), volumetric_ng, repeat("test_foo_test_vol_ngs")),
+    *zip(repeat(foo_test_surf_ngs), surface_mesh_ng, repeat("test_foo_test_surf_ngs")),
 ]
 
 @pytest.mark.parametrize('fn_parsed_result', all_parsed_results)
@@ -189,7 +189,7 @@ def test_datasource(fn_parsed_result: Tuple[Callable, ParseResult], request):
     value = request.getfixturevalue("write_output_fixture")
     assert value == 0, f"Expecting fixutre to be global, but was not"
 
-    fn, parsed_result = fn_parsed_result
+    fn, parsed_result, debug_text = fn_parsed_result
     results: List[CheckResult] = fn([parsed_result.geturl()])
     result, = results
     if DETAIL_FLAG:
@@ -200,5 +200,4 @@ def test_datasource(fn_parsed_result: Tuple[Callable, ParseResult], request):
     check_results.append(
         (parsed_result, result)
     )
-    assert result.error is None, f"Error: {result.error}"
-
+    assert result.error is None, f"Error: {result.error} {debug_text} {parsed_result}"
