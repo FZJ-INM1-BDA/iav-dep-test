@@ -18,8 +18,6 @@ jobs:
         endpoint: [cscs]
         use-cache: ["true"]
         version:
-        # - v1
-        # - v2
         - v3
         include:
         - endpoint: ebrains
@@ -32,8 +30,6 @@ jobs:
       USE_CACHE: ${{ matrix.use-cache }}
 
     outputs:
-      result-cscs-v1: ${{ steps.set-output.outputs.result-cscs-v1 }}
-      result-cscs-v2: ${{ steps.set-output.outputs.result-cscs-v2 }}
       result-ebrains-v3: ${{ steps.set-output.outputs.result-ebrains-v3 }}
       result-cscs-v3: ${{ steps.set-output.outputs.result-cscs-v3 }}
       
@@ -77,8 +73,6 @@ jobs:
     steps:
     - name: Check outputs
       run: |
-        cscs_v1=${{ needs.api-test.outputs.result-cscs-v1 }}
-        cscs_v2=${{ needs.api-test.outputs.result-cscs-v2 }}
         ebrains_v3=${{ needs.api-test.outputs.result-ebrains-v3 }}
         cscs_v3=${{ needs.api-test.outputs.result-cscs-v3 }}
 
@@ -86,7 +80,7 @@ jobs:
         echo "ebrains_v3: $ebrains_v3"
         echo "cscs_v3: $cscs_v3"
 
-        if [ -z "$cscs_v1" ] || [ -z "$cscs_v2" ] || [ -z "$ebrains_v3" ] || [ -z "$cscs_v3" ]
+        if [ -z "$ebrains_v3" ] || [ -z "$cscs_v3" ]
         then
           exit -1
         fi
