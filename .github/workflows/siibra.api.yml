@@ -18,8 +18,8 @@ jobs:
         endpoint: [cscs]
         use-cache: ["true"]
         version:
-        - v1
-        - v2
+        # - v1
+        # - v2
         - v3
         include:
         - endpoint: ebrains
