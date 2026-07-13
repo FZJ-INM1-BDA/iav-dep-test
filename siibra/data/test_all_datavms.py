@@ -10,6 +10,7 @@ from itertools import repeat
 from typing import Callable, Tuple, List
 from unittest.mock import patch
 
+from . import _monkeypatch
 from .util.ng_volume import get_neuroglancer_src, foo_test_vol_ngs
 from .util.common import CheckResult, pluck_by_host, get_all_mirrors
 from .util.static import get_static_files, foo_test_static_file

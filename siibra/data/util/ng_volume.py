@@ -8,7 +8,7 @@ from itertools import product
 
 from tqdm import tqdm
 import numpy as np
-from neuroglancer_scripts.http_accessor import HttpAccessor
+from neuroglancer_scripts.accessor import get_accessor_for_url
 from neuroglancer_scripts.sharded_http_accessor import ShardedHttpAccessor
 from neuroglancer_scripts.precomputed_io import get_IO_for_existing_dataset
 
@@ -55,7 +55,8 @@ def get_neuroglancer_src(file_to_json) -> list[ParseResult]:
 
 @fail_fast_dec()
 def _test_vol_ng(url: str) -> CheckResult:
-    accessor = HttpAccessor(url)
+    
+    accessor = get_accessor_for_url(url)
     io = get_IO_for_existing_dataset(accessor)
     if NG_QUICK_CHECK:
         return [io.info]
@@ -63,9 +64,6 @@ def _test_vol_ng(url: str) -> CheckResult:
     if scales := io.info.get("scales"):
         assert len(scales) > 0
         scale, *_ = scales
-        if scale.get("sharding"):
-            accessor = ShardedHttpAccessor(url)
-            io = get_IO_for_existing_dataset(accessor)
 
     scales = io.info.get("scales", [])
     assert len(scales) > 0, f"scales len need to be > 0"
