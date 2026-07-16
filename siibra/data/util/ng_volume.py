@@ -71,7 +71,7 @@ def _test_vol_ng(url: str) -> CheckResult:
     # try to get up to 5 random contiguous scales
     idx = math.floor(random() * len(scales))
     lower = max(0, idx - NG_LEVELS)
-    higher = min(len(scales), idx + NG_LEVELS + 1)
+    higher = min(len(scales) - 1, idx + NG_LEVELS)
 
     # for each selected scale, calculate lower bound and upper bound, based on NG_CHUNKS_MAX_LEVEL
     x, y, z = random(), random(), random()
