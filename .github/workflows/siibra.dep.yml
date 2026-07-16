@@ -15,6 +15,7 @@ jobs:
         ENDPOINT:
         - https://hbp-spatial-backend.apps.hbp.eu/
         - https://siibra-spatial-backend.apps.ebrains.eu/
+        - https://spatial-backend.apps.prod-jsccloud.ebrains.eu/
 
     env:
       ENDPOINT: ${{ matrix.ENDPOINT }}
