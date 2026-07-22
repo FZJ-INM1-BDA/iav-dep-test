@@ -26,10 +26,10 @@ jobs:
           --output ${{ env.NG_PROFILE_FILE_TO_WRITE }} \
           https://data-proxy.ebrains.eu/api/v1/buckets/reference-atlas-data/${{ env.REMOTE_METRIC_PATH }}
         
-    - run: pip install requests pytest neuroglancer-scripts tqdm pytest-timeout
+    - run: pip install requests pytest neuroglancer-scripts tqdm pytest-timeout pytest-rerunfailures
     - run: |
         export RUN_ID=${{ github.run_number }}
-        pytest -vvv siibra/data
+        pytest -vvv --reruns 3 --reruns-delay 5 siibra/data
     - if: always()
       uses: "./.github/actions/upload_dataproxy"
       with:

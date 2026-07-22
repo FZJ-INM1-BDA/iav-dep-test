@@ -12,9 +12,9 @@ def _http_file_exists(self, relative_path):
             return False
         if r.status_code == 405:  # HEAD not supported -> fall back to GET
             r = self._session.get(file_url, stream=True)
-            r.raise_for_status()
-            return True
-        r.raise_for_status()
+            if r.status_code == requests.codes.not_found:
+                return False
+        
     except requests.exceptions.RequestException as exc:
         raise DataAccessError(
             f"Error probing the existence of {file_url}: {exc}") from exc
@@ -29,7 +29,6 @@ def _shard_file_exists(self, filepath):
     if resp.status_code == 405:
         resp = self._session.get(url, stream=True)
         return resp.status_code == 200
-    resp.raise_for_status()
     return False
 
 

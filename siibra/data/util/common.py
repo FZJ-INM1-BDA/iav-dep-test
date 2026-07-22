@@ -44,7 +44,7 @@ def fail_fast_dec(id_fn=None):
                 if FAIL_FAST:
                     print(f"Failed: {_id}: {str(e)}")
                     raise e from e
-                result = CheckResult(_id, str(e))
+                result = CheckResult(_id, f"{e.__class__.__name__}: {str(e)}")
             finally:
                 result.perf_ns = time.time_ns() - start_time
                 return result
