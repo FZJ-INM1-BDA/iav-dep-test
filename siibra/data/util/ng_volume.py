@@ -1,7 +1,7 @@
 import json
 from urllib.parse import ParseResult
 import os
-from random import random
+from random import random, seed
 import math
 from concurrent.futures import ThreadPoolExecutor
 from itertools import product
@@ -15,6 +15,7 @@ from neuroglancer_scripts.precomputed_io import get_IO_for_existing_dataset
 from .common import get_all_http_str, fail_fast_dec, CheckResult
 
 NG_SRC_PREFIX = ("neuroglancer/precomputed",)
+RUN_ID = os.getenv("RUN_ID") and int(os.getenv("RUN_ID"))
 
 # Seems to load +- 2 levels (20um --> 320um)
 try:
@@ -55,6 +56,8 @@ def get_neuroglancer_src(file_to_json) -> list[ParseResult]:
 
 @fail_fast_dec()
 def _test_vol_ng(url: str) -> CheckResult:
+    if RUN_ID:
+        seed(RUN_ID)
     
     accessor = get_accessor_for_url(url)
     io = get_IO_for_existing_dataset(accessor)
