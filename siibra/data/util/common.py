@@ -5,6 +5,7 @@ import os
 import time
 from typing import Any
 from collections import defaultdict
+import traceback
 
 FAIL_FAST = os.getenv("FAIL_FAST")
 
@@ -44,7 +45,7 @@ def fail_fast_dec(id_fn=None):
                 if FAIL_FAST:
                     print(f"Failed: {_id}: {str(e)}")
                     raise e from e
-                result = CheckResult(_id, f"{e.__class__.__name__}: {str(e)}")
+                result = CheckResult(_id, f"{e.__class__.__name__}: {str(e)} \n\n{traceback.format_exc()}")
             finally:
                 result.perf_ns = time.time_ns() - start_time
                 return result
