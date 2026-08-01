@@ -26,7 +26,12 @@ jobs:
           --output ${{ env.NG_PROFILE_FILE_TO_WRITE }} \
           https://data-proxy.ebrains.eu/api/v1/buckets/reference-atlas-data/${{ env.REMOTE_METRIC_PATH }}
         
-    - run: pip install requests pytest neuroglancer-scripts tqdm pytest-timeout pytest-rerunfailures
+    - run: |
+        pip install requests pytest tqdm pytest-timeout pytest-rerunfailures
+        # fix to HTTP HEAD results in 405, and potentially other issues
+        # see https://github.com/HumanBrainProject/neuroglancer-scripts/pull/47
+        pip install git+https://github.com/HumanBrainProject/neuroglancer-scripts.git@355eb521644d6a65884eba67251d3c7e8fd4ae52
+    
     - run: |
         export RUN_ID=${{ github.run_number }}
         pytest -vvv --reruns 3 --reruns-delay 5 siibra/data
