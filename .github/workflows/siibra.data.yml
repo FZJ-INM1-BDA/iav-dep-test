@@ -30,7 +30,7 @@ jobs:
         pip install requests pytest tqdm pytest-timeout pytest-rerunfailures
         # fix to HTTP HEAD results in 405, and potentially other issues
         # see https://github.com/HumanBrainProject/neuroglancer-scripts/pull/47
-        pip install git+https://github.com/HumanBrainProject/neuroglancer-scripts.git@355eb521644d6a65884eba67251d3c7e8fd4ae52
+        GIT_LFS_SKIP_SMUDGE=1 pip install git+https://github.com/HumanBrainProject/neuroglancer-scripts.git@355eb521644d6a65884eba67251d3c7e8fd4ae52
     
     - run: |
         export RUN_ID=${{ github.run_number }}
