@@ -5,7 +5,12 @@ module.exports = defineConfig({
     defaultCommandTimeout: 10000,
     supportFile: false,
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      on("task", {
+        log(message) {
+          console.log(message);
+          return null;
+        },
+      });
     },
   },
   browser: {
