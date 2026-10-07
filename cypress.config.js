@@ -13,7 +13,5 @@ module.exports = defineConfig({
       });
     },
   },
-  browser: {
-    userAgent: `cypress bot at github.com FZJ-INM1-BDA iav-dep-test`
-  }
+  userAgent: `cypress bot at github.com FZJ-INM1-BDA iav-dep-test`
 });
