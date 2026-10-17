@@ -60,7 +60,7 @@ jobs:
         - https://ngpy.apps.hbp.eu/viewer_plugin
 
     env:
-      SIIBRA_DEPS_JUGEX_ENDPOINT: ${{ matrix.ENDPOINT }}
+      SIIBRA_DEPS_PLUGIN_ENDPOINT: ${{ matrix.ENDPOINT }}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v5
