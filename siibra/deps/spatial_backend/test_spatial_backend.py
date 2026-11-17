@@ -13,6 +13,7 @@ spaces = (
     "MNI 152 ICBM 2009c Nonlinear Asymmetric",
     "MNI Colin 27",
     "Big Brain (Histology)",
+    "MEBRAINS",
 )
 
 perm = list(permutations(spaces, 2))
