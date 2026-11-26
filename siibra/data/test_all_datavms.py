@@ -44,7 +44,9 @@ def patch_user_agent():
         yield
 
 with TemporaryDirectory() as tmpdir:
-    resp = requests.get(f"{GITLAB_ROOT}/api/v4/projects/{GITLAB_PROJECT_ID}/repository/archive.tar.gz?sha={GITLAB_REF_TAG}")
+    resp = requests.get(f"{GITLAB_ROOT}/api/v4/projects/{GITLAB_PROJECT_ID}/repository/archive.tar.gz?sha={GITLAB_REF_TAG}", headers={
+        "accept": "application/json"
+    })
     resp.raise_for_status()
     
     tar_file = Path(tmpdir) / "archive.tar.gz"
